@@ -1,0 +1,133 @@
+{
+    "ReadAllWiki": {
+        "next": [
+            "OnWikiHomePage"
+        ]
+    },
+    "OnWikiHomePage": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "excepted": "终末地百科"
+            }
+        },
+        "next": [
+            "ClickWikiHomePageUnreadBadge",
+            "ClickChapterUnreadBadge"
+        ]
+    },
+    "ClickWikiHomePageUnreadBadge": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "WikiUnreadBadge.png",
+                "roi": [
+                    184,
+                    243,
+                    1008,
+                    116
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "ClickChapterUnreadBadge"
+        ]
+    },
+    "ClickChapterUnreadBadge": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "WikiUnreadBadge.png",
+                "roi": [
+                    21,
+                    51,
+                    317,
+                    58
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [
+                    -5,
+                    5
+                ]
+            }
+        },
+        "next": [
+            "ClickRealUnreadPage",
+            "ScrollListForNextUnreadWiki",
+            "ClickChapterUnreadBadge"
+        ]
+    },
+    "ClickRealUnreadPage": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "WikiUnreadBadge.png",
+                "roi": [
+                    263,
+                    126,
+                    60,
+                    553
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [
+                    -100,
+                    0,
+                    0,
+                    0
+                ]
+            }
+        },
+        "next": [
+            "ClickRealUnreadPage",
+            "ScrollListForNextUnreadWiki",
+            "ClickChapterUnreadBadge"
+        ]
+    },
+    "ScrollListForNextUnreadWiki": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "WikiUnreadBadge.png",
+                    "WikiUnreadBadgeWithBlackBG.png"
+                ],
+                "roi": [
+                    136,
+                    640,
+                    65,
+                    58
+                ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    150,
+                    400
+                ],
+                "end": [
+                    150,
+                    200
+                ],
+                "end_hold": 1000
+            }
+        },
+        "next": [
+            "ClickRealUnreadPage",
+            "ScrollListForNextUnreadWiki",
+            "ClickChapterUnreadBadge"
+        ]
+    }
+}

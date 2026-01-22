@@ -49,38 +49,12 @@
             ]
         }
     ],
-    // 可选的 agent 示例
-    // "agent": {
-    //     "child_exec": "python",
-    //     "child_args": [
-    //         "./agent/main.py"
-    //     ]
-    // },
     "task": [
         {
-            "name": "普通任务",
-            "entry": "MyTask1",
-            "default_check": true
-        },
-        {
-            "name": "选项任务",
-            "entry": "MyTask2",
-            "option": [
-                "任务选项1"
-            ],
-            "default_check": true
-        },
-        {
-            "name": "参数任务",
-            "entry": "MyTask3",
-            "option": [
-                "任务选项1"
-            ],
-            "pipeline_override": {}
-        },
-        {
-            "name": "带Custom的任务",
-            "entry": "MyTask4"
+            "name": "📖百科一键已读",
+            "entry": "ReadAllWiki",
+            "default_check": true,
+            "description": "去掉终末地百科所有未读红点，请再终末地百科首页开始任务"
         }
     ],
     "option": {
