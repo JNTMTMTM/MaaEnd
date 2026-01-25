@@ -53,8 +53,16 @@ body:
   - type: textarea
     id: draw_images
     attributes:
-      label: Draw 调试图片 (仅识别问题)
-      description: 上传 `debug/vision/` 目录下对应的调试图片
+      label: 调试图片 (仅识别问题)
+      description: 上传 `debug/vision/` 目录下对应的调试图片。
+    validations:
+      required: false
+
+  - type: textarea
+    id: crash_dumps
+    attributes:
+      label: `.dmp` 文件 (仅崩溃闪退问题)
+      description: 上传 `C:\Users\<用户名>\AppData\Local\CrashDumps\` 目录下最近生成的 `.dmp` 文件。
     validations:
       required: false
 
@@ -62,6 +70,6 @@ body:
     id: additional
     attributes:
       label: 其他信息
-      description: 其他可能有帮助的信息，如运行环境、原始截图等
+      description: 其他可能有帮助的信息，如运行环境、原始截图等。
     validations:
       required: false
