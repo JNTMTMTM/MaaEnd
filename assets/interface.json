@@ -117,8 +117,8 @@
             ],
             "controller": [
                 "Win32",
-                "Win32-Window",
-                "Win32-Front"
+                "Win32-Front",
+                "Win32-Window"
             ]
         },
         {
@@ -688,11 +688,6 @@
                     "pipeline_override": {
                         "PuzzleSolverOnSuccess": {
                             "next": []
-                        },
-                        "PuzzleSolverSolvePuzzle": {
-                            "custom_action_param": {
-                                "dryRun": false
-                            }
                         }
                     }
                 },
@@ -704,11 +699,6 @@
                             "next": [
                                 "PuzzleSolverMain"
                             ]
-                        },
-                        "PuzzleSolverSolvePuzzle": {
-                            "custom_action_param": {
-                                "dryRun": false
-                            }
                         }
                     }
                 },
@@ -717,6 +707,7 @@
                     "label": "$option.PuzzleSolverMode.cases.DryRun.label",
                     "pipeline_override": {
                         "PuzzleSolverOnSuccess": {
+                            "action": "DoNothing",
                             "next": []
                         },
                         "PuzzleSolverSolvePuzzle": {
