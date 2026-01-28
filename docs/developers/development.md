@@ -51,9 +51,7 @@
 
 > [!NOTE]
 >
-> 关于延迟，可扩展阅读 [隔壁 ALAS 的基本运作模式](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/1.-Start#%E5%9F%BA%E6%9C%AC%E8%BF%90%E4%BD%9C%E6%A8%A1%E5%BC%8F)，其最佳实践基本等同于我们的 `next` 逻辑
-
-
+> 关于延迟，可扩展阅读 [隔壁 ALAS 的基本运作模式](https://github.com/LmeSzinc/AzurLaneAutoScript/wiki/1.-Start#%E5%9F%BA%E6%9C%AC%E8%BF%90%E4%BD%9C%E6%A8%A1%E5%BC%8F)，其推荐的实践基本等同于我们的 `next` 字段。
 
 ### Go service 代码规范
 
