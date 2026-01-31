@@ -4,7 +4,7 @@
 我们的主体流程采用 [Pipeline JSON 低代码](https://github.com/MaaEnd/MaaEnd/tree/main/assets/resource/pipeline)，复杂逻辑通过 [go-service](https://github.com/MaaEnd/MaaEnd/tree/main/agent/go-service) 编码实现。
 若有意加入 MaaEnd 开发，可以先阅读 MaaFramework 相关文档，了解低代码逻辑、相关编辑调试工具的使用~
 
-## 本地运行
+## 本地部署
 
 ### 自动设置
 
@@ -40,7 +40,7 @@ python tools/setup_workspace.py
 3. 下载 [MaaFramework](https://github.com/MaaXYZ/MaaFramework/releases) 并解压 `bin` 内容到 `install/maafw/` 。
 4. 下载 [MXU](https://github.com/MistEO/MXU/releases) 并解压到 `install/` 。
 
-### 开发技巧
+## 开发技巧
 
 - MaaFramework 有丰富的 [开发工具](https://github.com/MaaXYZ/MaaFramework/tree/main?tab=readme-ov-file#%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7) 可以进行低代码编辑、调试等，请善加使用。工作目录可设置为 `install` 文件夹。
 - 每次修改 Pipeline 后只需要在开发工具中重新加载资源即可；但每次修改 go-service 都需要执行 `python tools/build_and_install.py` 重新进行编译。
