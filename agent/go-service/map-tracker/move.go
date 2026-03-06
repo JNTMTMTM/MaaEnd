@@ -49,8 +49,8 @@ type PlayerMovement struct {
 }
 
 var (
-	MovementWalk   = PlayerMovement{2.0, 180.0}
-	MovementRun    = PlayerMovement{8.0, 360.0}
+	MovementWalk   = PlayerMovement{2.0, 270.0}
+	MovementRun    = PlayerMovement{8.0, 540.0}
 	MovementSprint = PlayerMovement{12.0, 1800.0}
 )
 
@@ -76,7 +76,7 @@ func (a *MapTrackerMove) Run(ctx *maa.Context, arg *maa.CustomActionArg) bool {
 
 	ctrl := ctx.GetTasker().GetController()
 	aw := NewActionWrapper(ctx, ctrl)
-	inferIntervalDuration := time.Duration(INFER_INTERVAL_MS) * time.Millisecond
+	loopInterval := time.Duration(INFER_INTERVAL_MS) * time.Millisecond
 
 	if param.PathTrim && len(param.Path) > 1 {
 		if initRes, err := doInfer(ctx, ctrl, param); err == nil && initRes != nil {
@@ -122,8 +122,11 @@ func (a *MapTrackerMove) Run(ctx *maa.Context, arg *maa.CustomActionArg) bool {
 		log.Info().Int("index", i).Int("targetX", targetX).Int("targetY", targetY).Msg("Navigating to next target point")
 
 		// Show navigation UI
-		if initRes, err := doInfer(ctx, ctrl, param); err == nil && initRes != nil {
-			initDist := math.Hypot(float64(initRes.X-targetX), float64(initRes.Y-targetY))
+		var initDist float64
+		var initRot int
+		if initResult, err := doInfer(ctx, ctrl, param); err == nil && initResult != nil {
+			initDist = math.Hypot(float64(initResult.X-targetX), float64(initResult.Y-targetY))
+			initRot = calcTargetRotation(initResult.X, initResult.Y, targetX, targetY)
 			if !param.NoPrint {
 				maafocus.NodeActionStarting(
 					aw.ctx,
@@ -135,7 +138,7 @@ func (a *MapTrackerMove) Run(ctx *maa.Context, arg *maa.CustomActionArg) bool {
 		}
 
 		var (
-			lastInferTime    = time.Time{}
+			lastLoopTime     = time.Time{}
 			lastArrivalTime  = time.Now()
 			prevLocationTime = time.Time{}
 			prevLocation     *[2]int
@@ -143,12 +146,12 @@ func (a *MapTrackerMove) Run(ctx *maa.Context, arg *maa.CustomActionArg) bool {
 
 		for {
 			// Calculate time since last check
-			elapsed := time.Since(lastInferTime)
-			if elapsed < inferIntervalDuration {
-				time.Sleep(inferIntervalDuration - elapsed)
+			loopElapsed := time.Since(lastLoopTime)
+			if loopElapsed < loopInterval {
+				time.Sleep(loopInterval - loopElapsed)
 			}
-			now := time.Now()
-			lastInferTime = now
+			loopStartTime := time.Now()
+			lastLoopTime = loopStartTime
 
 			// Check stopping signal
 			if ctx.GetTasker().Stopping() {
@@ -158,7 +161,7 @@ func (a *MapTrackerMove) Run(ctx *maa.Context, arg *maa.CustomActionArg) bool {
 			}
 
 			// Check arrival timeout
-			deltaArrivalMs := now.Sub(lastArrivalTime).Milliseconds()
+			deltaArrivalMs := loopStartTime.Sub(lastArrivalTime).Milliseconds()
 			if deltaArrivalMs > param.ArrivalTimeout {
 				log.Error().Msg("Arrival timeout, stopping task")
 				doEmergencyStop(aw, param.NoPrint)
@@ -176,13 +179,13 @@ func (a *MapTrackerMove) Run(ctx *maa.Context, arg *maa.CustomActionArg) bool {
 			rot := result.Rot
 			// Update adaptive rotation sensitivity
 			if lastAdjustRot != nil && lastAdjustPos != nil {
-				timeElapsed := time.Since(lastAdjustTime)
+				adjustElapsed := time.Since(lastAdjustTime)
 				distTravel := math.Hypot(float64(curX-lastAdjustPos[0]), float64(curY-lastAdjustPos[1]))
-				lastAdjustRotUpperAbsBound := movement.RotationSpeed * timeElapsed.Seconds()
-				if timeElapsed > 0 {
-					speed := distTravel / timeElapsed.Seconds()
-					// Check if player is moving sufficiently to trust rotation measurement
-					if speed > MovementWalk.Speed && lastAdjustApplied > param.RotationLowerThreshold {
+				lastAdjustRotUpperAbsBound := movement.RotationSpeed * adjustElapsed.Seconds()
+				if adjustElapsed > 0 {
+					speed := distTravel / adjustElapsed.Seconds()
+					// Check if player is moving and rotating sufficiently to trust rotation measurement
+					if speed > MovementWalk.Speed && math.Abs(lastAdjustApplied) > param.RotationLowerThreshold {
 						lastAdjustAppliedFixed := max(-lastAdjustRotUpperAbsBound, min(lastAdjustRotUpperAbsBound, lastAdjustApplied))
 						actualRotDelta := calcDeltaRotation(*lastAdjustRot, rot)
 						idealSpeed := lastAdjustAppliedFixed / (float64(actualRotDelta) + 1e-6)
@@ -206,8 +209,18 @@ func (a *MapTrackerMove) Run(ctx *maa.Context, arg *maa.CustomActionArg) bool {
 
 			// Check arrival
 			dist := math.Hypot(float64(curX-targetX), float64(curY-targetY))
-			if dist < param.ArrivalThreshold {
-				log.Info().Int("x", curX).Int("y", curY).Int("index", i).Msg("Target point reached")
+			isArrived := func() bool {
+				if dist < param.ArrivalThreshold {
+					log.Info().Int("x", curX).Int("y", curY).Int("index", i).Msg("Target point reached")
+					return true
+				}
+				if math.Abs(float64(calcDeltaRotation(targetRot, initRot))) > 90.0 {
+					log.Info().Int("targetRot", targetRot).Int("initRot", initRot).Int("index", i).Msg("Target point reached (guessed by rotation)")
+					return true
+				}
+				return false
+			}
+			if isArrived() {
 				// Peek next target's direction
 				if i < len(param.Path)-1 {
 					nextX, nextY := param.Path[i+1][0], param.Path[i+1][1]
@@ -218,6 +231,7 @@ func (a *MapTrackerMove) Run(ctx *maa.Context, arg *maa.CustomActionArg) bool {
 						aw.KeyUpSync(KEY_W, 25)
 					}
 				}
+				// Finish current target
 				break
 			}
 
@@ -225,7 +239,7 @@ func (a *MapTrackerMove) Run(ctx *maa.Context, arg *maa.CustomActionArg) bool {
 
 			// Check Stuck
 			if prevLocation != nil && prevLocation[0] == curX && prevLocation[1] == curY {
-				deltaLocationMs := now.Sub(prevLocationTime).Milliseconds()
+				deltaLocationMs := loopStartTime.Sub(prevLocationTime).Milliseconds()
 				if deltaLocationMs > param.StuckTimeout {
 					log.Error().Msg("Stuck for too long, stopping task")
 					doEmergencyStop(aw, param.NoPrint)
@@ -237,7 +251,7 @@ func (a *MapTrackerMove) Run(ctx *maa.Context, arg *maa.CustomActionArg) bool {
 				}
 			} else {
 				prevLocation = &[2]int{curX, curY}
-				prevLocationTime = now
+				prevLocationTime = loopStartTime
 			}
 
 			// Check if rotation is not good enough to sprint
@@ -266,13 +280,7 @@ func (a *MapTrackerMove) Run(ctx *maa.Context, arg *maa.CustomActionArg) bool {
 
 			// Adjust rotation
 			if math.Abs(float64(deltaRot)) > 1.0 {
-				// Update for adaptive mechanism
 				appliedDelta := calcAppliedDeltaRotation(deltaRot)
-				rotCopy := rot
-				lastAdjustRot = &rotCopy
-				lastAdjustPos = &[2]int{curX, curY}
-				lastAdjustTime = time.Now()
-				lastAdjustApplied = appliedDelta
 
 				// Select appropriate rotation method based on how bad the rotation is
 				if math.Abs(float64(deltaRot)) > param.RotationUpperThreshold {
@@ -292,6 +300,13 @@ func (a *MapTrackerMove) Run(ctx *maa.Context, arg *maa.CustomActionArg) bool {
 					aw.KeyDownSync(KEY_W, 25)
 					aw.RotateCamera(int(appliedDelta*rotationSpeed), 50, 25)
 				}
+
+				// Update adaptive rotation state
+				rotCopy := rot
+				lastAdjustRot = &rotCopy
+				lastAdjustPos = &[2]int{curX, curY}
+				lastAdjustTime = time.Now()
+				lastAdjustApplied = appliedDelta
 				aw.ResetCamera(50)
 			}
 		}
@@ -387,7 +402,7 @@ func doEmergencyStop(aw *ActionWrapper, noPrint bool) {
 }
 
 func doInfer(ctx *maa.Context, ctrl *maa.Controller, param *MapTrackerMoveParam) (*MapTrackerInferResult, error) {
-	// Capture Screen
+	// Capture screen
 	ctrl.PostScreencap().Wait()
 	img, err := ctrl.CacheImage()
 	if err != nil {
@@ -400,42 +415,45 @@ func doInfer(ctx *maa.Context, ctrl *maa.Controller, param *MapTrackerMoveParam)
 	}
 
 	// Run recognition
-	nodeName := "MapTrackerMove_Infer"
-	config := map[string]any{
-		nodeName: map[string]any{
-			"recognition":        "Custom",
-			"custom_recognition": "MapTrackerInfer",
-			"custom_recognition_param": map[string]any{
-				"map_name_regex": "^" + regexp.QuoteMeta(param.MapName) + "$",
-				"precision":      DEFAULT_INFERENCE_PARAM_FOR_MOVE.Precision,
-				"threshold":      DEFAULT_INFERENCE_PARAM_FOR_MOVE.Threshold,
-			},
-		},
+	inferConfig := map[string]any{
+		"map_name_regex": "^" + regexp.QuoteMeta(param.MapName) + "$",
+		"precision":      DEFAULT_INFERENCE_PARAM_FOR_MOVE.Precision,
+		"threshold":      DEFAULT_INFERENCE_PARAM_FOR_MOVE.Threshold,
 	}
 
-	res, err := ctx.RunRecognition(nodeName, img, config)
+	inferConfigBytes, err := json.Marshal(inferConfig)
 	if err != nil {
-		log.Error().Err(err).Msg("Failed to run MapTrackerInfer")
+		log.Error().Err(err).Msg("Failed to marshal inference config")
 		return nil, err
 	}
-	if res == nil || res.DetailJson == "" || res.Hit == false {
-		log.Error().Msg("Location inference not hit or result is empty")
-		return nil, fmt.Errorf("location inference not hit or result is empty")
+
+	taskDetail, err := ctx.GetTaskJob().GetDetail()
+	if err != nil {
+		log.Error().Err(err).Msg("Failed to get task detail")
+		return nil, err
+	}
+
+	resultJson, hit := mapTrackerInferRunner.Run(ctx, &maa.CustomRecognitionArg{
+		TaskID:                 taskDetail.ID,
+		CurrentTaskName:        taskDetail.Entry,
+		CustomRecognitionName:  "MapTrackerInfer",
+		CustomRecognitionParam: string(inferConfigBytes),
+		Img:                    img,
+		Roi:                    maa.Rect{0, 0, img.Bounds().Dx(), img.Bounds().Dy()},
+	})
+
+	if !hit {
+		log.Error().Msg("Location inference not hit")
+		return nil, fmt.Errorf("location inference not hit")
+	}
+	if resultJson == nil || resultJson.Detail == "" {
+		log.Error().Msg("Location inference result is empty")
+		return nil, fmt.Errorf("location inference result is empty")
 	}
 
 	// Extract result
 	var result MapTrackerInferResult
-	var wrapped struct {
-		Best struct {
-			Detail json.RawMessage `json:"detail"`
-		} `json:"best"`
-	}
-
-	if err := json.Unmarshal([]byte(res.DetailJson), &wrapped); err != nil {
-		log.Error().Err(err).Msg("Failed to unmarshal wrapped result")
-		return nil, err
-	}
-	if err := json.Unmarshal(wrapped.Best.Detail, &result); err != nil {
+	if err := json.Unmarshal([]byte(resultJson.Detail), &result); err != nil {
 		log.Error().Err(err).Msg("Failed to unmarshal MapTrackerInferResult")
 		return nil, err
 	}
@@ -481,5 +499,5 @@ func calcAppliedDeltaRotation(deltaRot int) float64 {
 	if deltaRot > 0 {
 		return absRotAug
 	}
-	return math.Round(-absRotAug)
+	return -absRotAug
 }
