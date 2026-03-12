@@ -152,13 +152,13 @@
                 "roi": [
                     0,
                     0,
-                    296,
+                    850,
                     111
                 ],
                 "expected": [
                     "选择培养对象",
-                    "Select",
-                    "materials"
+                    "SELECT MATERIALS",
+                    "TO GROW"
                 ]
             }
         },
@@ -185,7 +185,15 @@
                     "菌$",
                     "石$",
                     "叶$",
-                    "Bloodcap$"
+                    "stone$",
+                    "site$",
+                    "gela$",
+                    "leaf$",
+                    "garic$",
+                    "cap$",
+                    "nyx$",
+                    "endra$",
+                    "lete$"
                 ]
             }
         }
