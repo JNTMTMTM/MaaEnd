@@ -1,4 +1,24 @@
 {
+    "AutoStockpileKettle": {
+        "desc": "希望+3（确认稳定标识，画面未稳定会是黑边）",
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    7,
+                    119,
+                    68,
+                    84
+                ],
+                "template": [
+                    "AutoStockpile/AutoStockpileKettle.png"
+                ],
+                "threshold": [
+                    0.8
+                ]
+            }
+        }
+    },
     "AutoStockpileBuy": {
         "desc": "进行购买操作",
         "recognition": {
@@ -22,12 +42,30 @@
         ]
     },
     "AutoStockpileRegionUnavailable": {
-        "desc": "在这里处理没有解锁物资调度",
+        "desc": "检查物资调度是否解锁",
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    885,
+                    300,
+                    135,
+                    143
+                ],
+                "template": [
+                    "AutoStockpile/AutoStockpileLocked.png"
+                ],
+                "green_mask": true,
+                "threshold": [
+                    0.8
+                ]
+            }
+        },
         "pre_delay": 0,
         "post_delay": 0,
         "rate_limit": 0,
         "focus": {
-            "Node.Recognition.Starting": "该地区未解锁弹性物资调度，跳过该地区"
+            "Node.Recognition.Starting": "该地区未解锁物资调度，跳过该地区"
         }
     },
     "AutoStockpileDecision": {
@@ -61,7 +99,10 @@
         "rate_limit": 0,
         "focus": {
             "Node.Recognition.Succeeded": "无合格商品，跳过本次购买"
-        }
+        },
+        "next": [
+            "AutoStockpileBackToRegionalConstruction"
+        ]
     },
     "AutoStockpileEnterStore": {
         "desc": "进入物资调度界面",
@@ -87,7 +128,7 @@
             "type": "Click",
             "param": {}
         },
-        "post_wait_freezes": 400,
+        "post_wait_freezes": 200,
         "post_delay": 0,
         "rate_limit": 0,
         "next": [
@@ -96,29 +137,27 @@
         ]
     },
     "AutoStockpileGotoElasticGoods": {
-        "desc": "选择弹性物资调度，需要优化",
+        "desc": "选择弹性物资调度",
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "roi": [
-                    338,
-                    57,
-                    69,
-                    62
-                ],
-                "template": [
-                    "AutoStockpile/ElasticGoodsButton.png",
-                    "AutoStockpile/ElasticGoodsButtonSelected.png"
-                ],
-                "threshold": [
-                    0.8
+                "all_of": [
+                    "AutoStockpileElasticGoodsButton",
+                    "AutoStockpileKettle"
                 ]
             }
         },
         "pre_delay": 0,
         "action": {
             "type": "Click",
-            "param": {}
+            "param": {
+                "target_offset": [
+                    0,
+                    10,
+                    0,
+                    0
+                ]
+            }
         },
         "post_wait_freezes": 200,
         "post_delay": 0,
@@ -200,6 +239,7 @@
         ]
     },
     "EnsureInRegionalDevelopment": {
+        "desc": "GoToRegion具体失败行为待确认，此处Action.Fail为猜测",
         "recognition": {
             "type": "And",
             "param": {
@@ -223,6 +263,9 @@
         "post_wait_freezes": 200,
         "post_delay": 0,
         "rate_limit": 0,
+        "focus": {
+            "Node.Action.Failed": "进入地区失败，该地区可能未解锁"
+        },
         "next": [
             "AutoStockpileEnterStore",
             "AutoStockpileRegionUnavailable"
@@ -325,7 +368,10 @@
         "rate_limit": 0,
         "focus": {
             "Node.Action.Succeeded": "购买成功"
-        }
+        },
+        "next": [
+            "AutoStockpileBackToRegionalConstruction"
+        ]
     },
     "AutoStockpileSwipeToBottom": {
         "desc": "将所有可购买物品展示在窗口中（更稳定）",
@@ -427,7 +473,10 @@
         "rate_limit": 0,
         "focus": {
             "Node.Recognition.Succeeded": "可购买数量不足，取消购买"
-        }
+        },
+        "next": [
+            "AutoStockpileCancelBuy"
+        ]
     },
     "AutoStockpileSwipeSpecificQuantity": {
         "desc": "滑动到指定数值",
@@ -467,12 +516,12 @@
         "post_wait_freezes": 200,
         "post_delay": 0,
         "rate_limit": 0,
-        "next": [
-            "AutoStockpileRelayNode"
-        ],
         "focus": {
             "Node.Action.Failed": "定量滑动失败，取消购买"
-        }
+        },
+        "next": [
+            "AutoStockpileRelayNode"
+        ]
     },
     "AutoStockpileCheckBuy": {
         "desc": "确认可以进行购买操作",
@@ -492,5 +541,68 @@
             "AutoStockpileSwipeSpecificQuantity",
             "AutoStockpileSwipeMax"
         ]
+    },
+    "AutoStockpileBackToRegionalConstruction": {
+        "desc": "流程优化，返回地区建设页面",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "CloseButtonType1",
+                    "AutoStockpileElasticGoodsButton"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 400,
+        "post_delay": 0,
+        "rate_limit": 0
+    },
+    "AutoStockpileCancelBuy": {
+        "desc": "退出购买页面",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "CloseButtonType1"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 200,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockpileBackToRegionalConstruction"
+        ]
+    },
+    "AutoStockpileElasticGoodsButton": {
+        "desc": "弹性物资调度黑白双煞",
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    338,
+                    57,
+                    69,
+                    62
+                ],
+                "template": [
+                    "AutoStockpile/ElasticGoodsButton.png",
+                    "AutoStockpile/ElasticGoodsButtonSelected.png"
+                ],
+                "threshold": [
+                    0.8
+                ]
+            }
+        }
     }
 }
