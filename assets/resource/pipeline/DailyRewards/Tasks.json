@@ -145,7 +145,8 @@
                 ],
                 "template": [
                     "DailyRewards/FinishedTaskIcon.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "next": [
@@ -293,8 +294,8 @@
                 "roi_offset": [
                     429,
                     -10,
-                    94,
-                    20
+                    110,
+                    60
                 ],
                 "expected": [
                     "前往",
@@ -341,8 +342,8 @@
                 "roi_offset": [
                     429,
                     -10,
-                    94,
-                    20
+                    110,
+                    60
                 ],
                 "expected": [
                     "前往",
@@ -388,8 +389,8 @@
                 "roi_offset": [
                     429,
                     -10,
-                    94,
-                    20
+                    110,
+                    60
                 ],
                 "expected": [
                     "前往",
