@@ -1034,8 +1034,8 @@
                 ]
             }
         },
-        "post_delay": 0,
         "pre_delay": 0,
+        "post_delay": 0,
         "rate_limit": 0,
         "next": [
             "ReceptionRoomNeedReceiveClues",
@@ -1155,6 +1155,12 @@
                     393,
                     130
                 ],
+                "roi_offset": [
+                    0,
+                    0,
+                    19,
+                    0
+                ],
                 "expected": [
                     "联盟工团的线索",
                     "聯盟工團的線索",
@@ -1183,13 +1189,7 @@
                     "众生长地的线索",
                     "(?i)Hannabit\\s*Circuit"
                 ],
-                "order_by": "Vertical",
-                "roi_offset": [
-                    0,
-                    0,
-                    19,
-                    0
-                ]
+                "order_by": "Vertical"
             }
         },
         "pre_delay": 0,
