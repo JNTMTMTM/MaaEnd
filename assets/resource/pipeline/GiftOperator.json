@@ -13,7 +13,7 @@
                 "expected": [
                     "礼物",
                     "禮物",
-                    "(?i)^Gift$",
+                    "Gift",
                     "プレゼント"
                 ]
             }
@@ -193,7 +193,7 @@
                 "expected": [
                     "干员联络",
                     "幹員聯絡",
-                    "(?i)^Operator\\s*Contact$",
+                    "Operator Contact",
                     "オペレーターの呼び出し"
                 ]
             }
@@ -446,7 +446,7 @@
                 "expected": [
                     "默认",
                     "預設",
-                    "(?i)^Default$",
+                    "Default",
                     "デフォルト"
                 ]
             }

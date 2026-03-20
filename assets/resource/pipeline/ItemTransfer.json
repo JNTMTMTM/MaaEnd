@@ -17,7 +17,7 @@
         ],
         "expected": [
             "好友",
-            "(?i)^Friends$",
+            "Friends",
             "フレンド",
             "Visit",
             "拜访好友",
@@ -67,7 +67,7 @@
         "expected": [
             "仓库切换",
             "倉庫切換",
-            "(?i)^Switch\\s*Depot$",
+            "Switch Depot",
             "倉庫切替",
             "Switch",
             "Depot"
@@ -138,7 +138,7 @@
         "expected": [
             "已连接",
             "已連接",
-            "(?i)^Connected$",
+            "Connected",
             "接続済み"
         ],
         "next": [
@@ -172,8 +172,9 @@
         ],
         "expected": [
             "降序",
-            "(?i)^DESC$",
-            "降順"
+            "DESC",
+            "降順",
+            "Desc"
         ],
         "action": "Click",
         "post_wait_freezes": 400,
@@ -193,8 +194,9 @@
         ],
         "expected": [
             "升序",
-            "(?i)^ASC$",
-            "昇順"
+            "ASC",
+            "昇順",
+            "Asc"
         ],
         "action": "Click",
         "post_wait_freezes": 400,
@@ -302,7 +304,7 @@
         "expected": [
             "仓库切换",
             "倉庫切換",
-            "(?i)^Switch\\s*Depot$",
+            "Switch Depot",
             "倉庫切替",
             "Switch",
             "Depot"
@@ -373,7 +375,7 @@
         "expected": [
             "已连接",
             "已連接",
-            "(?i)^Connected$",
+            "Connected",
             "接続済み"
         ],
         "next": [
@@ -471,7 +473,7 @@
         "expected": [
             "已充满",
             "已充滿",
-            "(?i)^Full$",
+            "Full",
             "FULL",
             "已满",
             "已滿"
@@ -491,7 +493,7 @@
         "expected": [
             "仓库切换",
             "倉庫切換",
-            "(?i)^Switch\\s*Depot$",
+            "Switch Depot",
             "倉庫切替",
             "Switch",
             "Depot"
@@ -562,7 +564,7 @@
         "expected": [
             "已连接",
             "已連接",
-            "(?i)^Connected$",
+            "Connected",
             "接続済み"
         ],
         "next": [

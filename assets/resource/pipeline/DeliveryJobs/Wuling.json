@@ -52,7 +52,7 @@
         "expected": [
             "武陵城区",
             "武陵城區",
-            "(?i)^Wuling\\s*City$",
+            "Wuling City",
             "武陵城内",
             "무릉성 도심"
         ],
@@ -73,11 +73,11 @@
         "expected": [
             "查看报价",
             "查看報價",
-            "(?i)^Check\\s*Bid$",
+            "Check Bid",
             "希望価格確認",
             "货物装箱",
             "貨物裝箱",
-            "(?i)^Pack\\s*Goods$",
+            "Pack Goods",
             "パッキング",
             "화물 포장",
             "입찰 보기"

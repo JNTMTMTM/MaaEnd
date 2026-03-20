@@ -22,8 +22,9 @@
                 "expected": [
                     "行动手册",
                     "行動手冊",
-                    "(?i)^Operational\\s*Manual$",
+                    "Operational Manual",
                     "案内所",
+                    "OPERATIONAL MANUAL",
                     "작전 매뉴얼"
                 ]
             }
@@ -76,7 +77,7 @@
                 "expected": [
                     "领取",
                     "領取",
-                    "(?i)^Claim$",
+                    "Claim",
                     "受取",
                     "[Cc]laim"
                 ]
@@ -166,7 +167,7 @@
                 "expected": [
                     "今日活跃度已达上限",
                     "今日活躍度已達上限",
-                    "(?i)^Daily\\s*Activity\\s*Points\\s*Maxed$",
+                    "Daily Activity Points Maxed",
                     "上限到達"
                 ]
             }
@@ -217,7 +218,7 @@
                 "expected": [
                     "武器等级",
                     "武器等級",
-                    "(?i)^Weapon\\s*Level$",
+                    "Weapon Level",
                     "レベル",
                     "Level up a weapon"
                 ]
@@ -245,7 +246,7 @@
                 "expected": [
                     "简易制作",
                     "簡易製作",
-                    "(?i)^Crafting$",
+                    "Crafting",
                     "道具製作"
                 ]
             }
@@ -272,7 +273,7 @@
                 "expected": [
                     "装备制造",
                     "裝備製造",
-                    "(?i)^Gear\\s*Assembly$",
+                    "Gear Assembly",
                     "装備製造",
                     "Assemble gear"
                 ]

@@ -116,7 +116,7 @@
         "expected": [
             "请选择用于交易的货品",
             "請選擇用於交易的貨品",
-            "(?i)^Select\\s*Goods\\s*to\\s*Trade$",
+            "Select Goods to Trade",
             "取引用の商品を選択してください",
             "거래할 상품 선택 필요"
         ],
@@ -139,9 +139,10 @@
         "expected": [
             "肥料数量不足",
             "肥料數量不足",
-            "(?i)^Insufficient$",
+            "Insufficient",
             "肥料が足りません",
             "不足",
+            "insufficient",
             "거점 관리권 보유량 부족"
         ],
         "pre_delay": 0,
@@ -233,8 +234,9 @@
         ],
         "expected": [
             "交易",
-            "(?i)^Trade$",
+            "Trade",
             "取引",
+            "trade",
             "거래"
         ],
         "pre_delay": 0,

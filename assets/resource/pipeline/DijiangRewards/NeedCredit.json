@@ -116,7 +116,7 @@
                 "expected": [
                     "会客室",
                     "會客室",
-                    "(?i)^Reception\\s*Room$",
+                    "Reception Room",
                     "応接室",
                     "Reception"
                 ]

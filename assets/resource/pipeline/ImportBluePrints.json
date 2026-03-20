@@ -20,7 +20,7 @@
                 "expected": [
                     "共享蓝图",
                     "共享藍圖",
-                    "(?i)^Shared\\s*Blueprints$",
+                    "Shared Blueprints",
                     "共有図面",
                     "Shared Blueprint",
                     "Shared"
@@ -170,10 +170,10 @@
                 "expected": [
                     "存至共享蓝图",
                     "存至共享藍圖",
-                    "(?i)^Save\\s*to\\s*Shared\\s*Blueprints$",
+                    "Save to Shared Blueprints",
                     "保存",
                     "儲存",
-                    "(?i)^Save$",
+                    "Save",
                     "Save to Shared"
                 ]
             }
@@ -198,7 +198,7 @@
                 "expected": [
                     "已保存",
                     "已儲存",
-                    "(?i)^Saved$",
+                    "Saved",
                     "保存済み",
                     "Already"
                 ]

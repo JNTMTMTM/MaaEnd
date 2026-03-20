@@ -14,7 +14,7 @@
                 "expected": [
                     "生长",
                     "生長",
-                    "(?i)^Growth$",
+                    "Growth",
                     "成長",
                     "^培养舱",
                     "^培養艙",
@@ -54,7 +54,7 @@
                 "expected": [
                     "生长",
                     "生長",
-                    "(?i)^Growth$",
+                    "Growth",
                     "成長",
                     "^培养舱",
                     "^培養艙",
@@ -94,7 +94,7 @@
                 "expected": [
                     "培养舱",
                     "培養艙",
-                    "(?i)^Growth\\s*Chamber$",
+                    "Growth Chamber",
                     "培養室",
                     "GROWTH ?CHAMBER"
                 ]
@@ -352,7 +352,7 @@
                 "expected": [
                     "培养",
                     "培養",
-                    "(?i)^Grow$",
+                    "Grow",
                     "^培养$",
                     "^培養$"
                 ]
@@ -391,7 +391,7 @@
                 "expected": [
                     "培养",
                     "培養",
-                    "(?i)^Grow$",
+                    "Grow",
                     "^培养$",
                     "^培養$"
                 ]
@@ -425,12 +425,9 @@
                     111
                 ],
                 "expected": [
-                    "选择素材",
-                    "選擇材料",
-                    "(?i)^Select\\s*Materials$",
-                    "数量調整",
                     "选择培养对象",
                     "選擇培養對象",
+                    "SELECT MATERIALS",
                     "TO GROW"
                 ]
             }
@@ -620,7 +617,7 @@
                 "expected": [
                     "生产助力",
                     "生產助力",
-                    "(?i)^Assist$",
+                    "Assist",
                     "生産サポート",
                     "Production"
                 ]
@@ -647,7 +644,7 @@
                 ],
                 "expected": [
                     "前往提取基核",
-                    "(?i)^Extract\\s*Seed$",
+                    "Extract Seed",
                     "基核抽出へ"
                 ]
             }
@@ -672,7 +669,7 @@
                 ],
                 "expected": [
                     "前往提取基核",
-                    "(?i)^Extract\\s*Seed$",
+                    "Extract Seed",
                     "基核抽出へ"
                 ]
             }
@@ -702,7 +699,7 @@
                 ],
                 "expected": [
                     "前往提取基核",
-                    "(?i)^Extract\\s*Seed$",
+                    "Extract Seed",
                     "基核抽出へ"
                 ]
             }
@@ -904,12 +901,10 @@
                     111
                 ],
                 "expected": [
-                    "素材",
-                    "材料",
-                    "(?i)^Materials$",
                     "选择培养对象",
                     "選擇培養對象",
-                    "Select"
+                    "Select",
+                    "materials"
                 ]
             }
         },
@@ -944,12 +939,10 @@
                     111
                 ],
                 "expected": [
-                    "素材",
-                    "材料",
-                    "(?i)^Materials$",
                     "选择培养对象",
                     "選擇培養對象",
-                    "Select"
+                    "Select",
+                    "materials"
                 ]
             }
         },
@@ -985,16 +978,17 @@
                 "expected": [
                     "基核数量",
                     "基核數量",
-                    "(?i)^Amount\\s*of\\s*seeds$",
+                    "Amount of seeds",
                     "基核数",
                     "默认",
                     "預設",
-                    "(?i)^Default$",
+                    "Default",
                     "デフォルト",
                     "品质",
                     "品質",
-                    "(?i)^Quality$",
-                    "基核數"
+                    "Quality",
+                    "基核數",
+                    "Amount of Seeds"
                 ]
             }
         },
@@ -1028,16 +1022,17 @@
                 "expected": [
                     "基核数量",
                     "基核數量",
-                    "(?i)^Amount\\s*of\\s*seeds$",
+                    "Amount of seeds",
                     "基核数",
                     "默认",
                     "預設",
-                    "(?i)^Default$",
+                    "Default",
                     "デフォルト",
                     "品质",
                     "品質",
-                    "(?i)^Quality$",
-                    "基核數"
+                    "Quality",
+                    "基核數",
+                    "Amount of Seeds"
                 ]
             }
         },
@@ -1105,8 +1100,9 @@
                 "expected": [
                     "拥有数量",
                     "持有數量",
-                    "(?i)^Amount\\s*owned$",
-                    "総在庫"
+                    "Amount owned",
+                    "総在庫",
+                    "Amount Owned"
                 ]
             }
         },
@@ -1141,19 +1137,19 @@
                 "expected": [
                     "基核数量",
                     "基核數量",
-                    "(?i)^Amount\\s*of\\s*seeds$",
+                    "Amount of seeds",
                     "基核数",
                     "默认",
                     "預設",
-                    "(?i)^Default$",
+                    "Default",
                     "デフォルト",
                     "拥有数量",
                     "持有數量",
-                    "(?i)^Amount\\s*owned$",
+                    "Amount owned",
                     "総在庫",
                     "品质",
                     "品質",
-                    "(?i)^Quality$",
+                    "Quality",
                     "基核數"
                 ]
             }
@@ -1187,19 +1183,19 @@
                 "expected": [
                     "基核数量",
                     "基核數量",
-                    "(?i)^Amount\\s*of\\s*seeds$",
+                    "Amount of seeds",
                     "基核数",
                     "默认",
                     "預設",
-                    "(?i)^Default$",
+                    "Default",
                     "デフォルト",
                     "拥有数量",
                     "持有數量",
-                    "(?i)^Amount\\s*owned$",
+                    "Amount owned",
                     "総在庫",
                     "品质",
                     "品質",
-                    "(?i)^Quality$",
+                    "Quality",
                     "基核數"
                 ]
             }
@@ -1231,7 +1227,7 @@
                 ],
                 "expected": [
                     "降序",
-                    "(?i)^DESC$",
+                    "DESC",
                     "降順"
                 ]
             }
@@ -1264,7 +1260,7 @@
                 ],
                 "expected": [
                     "降序",
-                    "(?i)^DESC$",
+                    "DESC",
                     "降順"
                 ]
             }
@@ -1296,7 +1292,7 @@
                 "expected": [
                     "培养舱",
                     "培養艙",
-                    "(?i)^Growth\\s*Chamber$",
+                    "Growth Chamber",
                     "培養室",
                     "GROWTH ?CHAMBER"
                 ]
@@ -1334,7 +1330,7 @@
                 "expected": [
                     "培养舱",
                     "培養艙",
-                    "(?i)^Growth\\s*Chamber$",
+                    "Growth Chamber",
                     "培養室",
                     "GROWTH ?CHAMBER"
                 ]
