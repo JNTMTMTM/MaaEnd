@@ -92,19 +92,30 @@ func (a *ItemTransferFallbackAction) Run(ctx *maa.Context, arg *maa.CustomAction
 		return false
 	}
 
-	sortByGridPosition(items)
+	// Check for low-score NND target before rebuilding grid
+	// (needs raw NND items with ClassID intact)
+	var lowScoreTarget *gridItem
+	if found := findByLowScoreTarget(items, params.TargetClass); found != nil {
+		lowScoreTarget = found
+	}
+
+	cols := repoCols
+	if side == "bag" {
+		cols = bagCols
+	}
+	items = buildFullGrid(items, cols, side)
 
 	// Case 2.1: target class detected with low score → hover to verify
-	if found := findByLowScoreTarget(items, params.TargetClass); found != nil {
+	if lowScoreTarget != nil {
 		log.Info().
 			Str("component", componentName).
-			Float64("score", found.Score).
+			Float64("score", lowScoreTarget.Score).
 			Msg("target class found with low score, verifying via OCR")
 
-		name := hoverAndOCR(ctx, tasker, ctrl, found.CenterX, found.CenterY)
+		name := hoverAndOCR(ctx, tasker, ctrl, lowScoreTarget.CenterX, lowScoreTarget.CenterY)
 		if matchesTarget(name, itemInfo.Name) {
 			log.Info().Str("component", componentName).Str("ocr_name", name).Msg("OCR verified target")
-			return ctrlClick(ctrl, found.CenterX, found.CenterY)
+			return ctrlClick(ctrl, lowScoreTarget.CenterX, lowScoreTarget.CenterY)
 		}
 		log.Info().
 			Str("component", componentName).
