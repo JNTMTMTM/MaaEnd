@@ -281,7 +281,7 @@
     "ItemTransferTransferToBag": {
         "action": "Click",
         "target": "ItemTransferFindItemInRepo",
-        "target_offset": [30, 30, -60, -60],
+        "target_offset": [26, 25, -52, -50],
         "next": [
             "ItemTransferCtrlKeyUpRepo"
         ]
@@ -450,7 +450,7 @@
     "ItemTransferTransferToRepo": {
         "action": "Click",
         "target": "ItemTransferFindItemInBag",
-        "target_offset": [30, 30, -60, -60],
+        "target_offset": [26, 25, -52, -50],
         "next": [
             "ItemTransferCtrlKeyUpBag"
         ]
@@ -641,7 +641,7 @@
     "ItemTransferTransferToRepoReturn": {
         "action": "Click",
         "target": "ItemTransferFindItemInBagReturn",
-        "target_offset": [30, 30, -60, -60],
+        "target_offset": [26, 25, -52, -50],
         "next": [
             "ItemTransferCtrlKeyUpBagReturn"
         ]
