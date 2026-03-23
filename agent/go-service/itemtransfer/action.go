@@ -86,36 +86,31 @@ func (a *ItemTransferFallbackAction) Run(ctx *maa.Context, arg *maa.CustomAction
 		return false
 	}
 
-	items := detectAllItems(ctx, img, nndNode)
-	if len(items) == 0 {
+	rawItems := detectAllItems(ctx, img, nndNode)
+	if len(rawItems) == 0 {
 		log.Warn().Str("component", componentName).Msg("no items detected on current page")
 		return false
-	}
-
-	// Check for low-score NND target before rebuilding grid
-	// (needs raw NND items with ClassID intact)
-	var lowScoreTarget *gridItem
-	if found := findByLowScoreTarget(items, params.TargetClass); found != nil {
-		lowScoreTarget = found
 	}
 
 	cols := repoCols
 	if side == "bag" {
 		cols = bagCols
 	}
-	items = buildFullGrid(items, cols, side)
+	items := buildFullGrid(rawItems, cols, side)
 
-	// Case 2.1: target class detected with low score → hover to verify
-	if lowScoreTarget != nil {
+	// Case 2.1: target class detected with low score → snap to grid and verify
+	if found := findByLowScoreTarget(rawItems, params.TargetClass); found != nil {
+		gx, gy := snapToGrid(found.CenterX, found.CenterY, items)
 		log.Info().
 			Str("component", componentName).
-			Float64("score", lowScoreTarget.Score).
+			Float64("score", found.Score).
+			Int("grid_x", gx).Int("grid_y", gy).
 			Msg("target class found with low score, verifying via OCR")
 
-		name := hoverAndOCR(ctx, tasker, ctrl, lowScoreTarget.CenterX, lowScoreTarget.CenterY)
+		name := hoverAndOCR(ctx, tasker, ctrl, gx, gy)
 		if matchesTarget(name, itemInfo.Name) {
 			log.Info().Str("component", componentName).Str("ocr_name", name).Msg("OCR verified target")
-			return ctrlClick(ctrl, lowScoreTarget.CenterX, lowScoreTarget.CenterY)
+			return ctrlClick(ctrl, gx, gy)
 		}
 		log.Info().
 			Str("component", componentName).
@@ -478,6 +473,21 @@ func ctrlClick(ctrl *maa.Controller, x, y int) bool {
 		Int("y", y).
 		Msg("Ctrl+Click performed")
 	return true
+}
+
+func snapToGrid(x, y int, grid []gridItem) (int, int) {
+	bestX, bestY := x, y
+	bestDist := 1<<31 - 1
+	for _, g := range grid {
+		dx := g.CenterX - x
+		dy := g.CenterY - y
+		d := dx*dx + dy*dy
+		if d < bestDist {
+			bestDist = d
+			bestX, bestY = g.CenterX, g.CenterY
+		}
+	}
+	return bestX, bestY
 }
 
 func moveMouseSafe(ctrl *maa.Controller) {
