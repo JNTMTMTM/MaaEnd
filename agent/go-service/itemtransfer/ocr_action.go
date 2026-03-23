@@ -131,6 +131,7 @@ func (a *ItemTransferOCRAction) Run(ctx *maa.Context, arg *maa.CustomActionArg) 
 	}
 
 	log.Info().Str("component", componentName).Str("item_name", params.ItemName).Msg("OCR search found nothing")
+	moveMouseSafe(ctrl)
 	return false
 }
 

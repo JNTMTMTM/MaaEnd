@@ -126,6 +126,7 @@ func (a *ItemTransferFallbackAction) Run(ctx *maa.Context, arg *maa.CustomAction
 			return ctrlClick(ctrl, result.CenterX, result.CenterY)
 		}
 		log.Info().Str("component", componentName).Msg("binary search exhausted all grid cells, item not found")
+		moveMouseSafe(ctrl)
 		return false
 	}
 
@@ -136,6 +137,7 @@ func (a *ItemTransferFallbackAction) Run(ctx *maa.Context, arg *maa.CustomAction
 	}
 
 	log.Info().Str("component", componentName).Msg("linear scan found nothing, item not found")
+	moveMouseSafe(ctrl)
 	return false
 }
 
@@ -271,7 +273,6 @@ func hoverAndOCR(ctx *maa.Context, tasker *maa.Tasker, ctrl *maa.Controller, x, 
 		Int("hover_y", y).
 		Msg("tooltip OCR result")
 
-	moveMouseSafe(ctrl)
 	text = strings.TrimSpace(text)
 	if strings.Contains(text, "已盛装") {
 		return ""
@@ -472,6 +473,8 @@ func ctrlClick(ctrl *maa.Controller, x, y int) bool {
 		Int("x", x).
 		Int("y", y).
 		Msg("Ctrl+Click performed")
+
+	moveMouseSafe(ctrl)
 	return true
 }
 
