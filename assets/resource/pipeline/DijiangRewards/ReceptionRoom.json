@@ -224,6 +224,7 @@
             "type": "Click"
         },
         "post_delay": 0,
+        "post_wait_freezes": 100,
         "rate_limit": 0,
         "next": [
             "ReceptionRoomCollectCluesExit"
