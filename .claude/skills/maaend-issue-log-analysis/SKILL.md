@@ -293,15 +293,15 @@ description: 分析 MaaEnd 上游仓库公开 Issue（`https://github.com/MaaEnd
 ## Linking Code Evidence
 
 - 如果要指向具体代码行，不要写本地路径加行号，也不要写绝对路径。
-- 统一给出对应仓库的远端 GitHub `blob` 行号链接。
+- 统一给出对应仓库的远端 GitHub `blob` 行号链接，并用尖括号包裹。
 - MaaEnd 仓库链接格式：
-    - `https://github.com/MaaEnd/MaaEnd/blob/<commit>/<path>#L14-L20`
+    - `https://github.com/MaaEnd/MaaEnd/blob/<commit>/<path>#L1-L2`
 - `<commit>` 必须是本次分析实际依据的代码版本：
     - 默认使用当前检出的 `HEAD`
     - 如果为了复核旧 issue 切到了某个 tag / commit，就使用那个版本解析后的 SHA
 - 例子：
-    - `https://github.com/MaaEnd/MaaEnd/blob/f2de4c61367ad03d4d8a13ce823139c6237f2a55/assets/resource/pipeline/Common/Button.json#L14-L20`
-- 如果引用的是 `MXU`、`MaaFramework` 或其他上游仓库，也用对应仓库的远端 `blob` 链接，而不是本地文件行号。
+    - <https://github.com/MaaEnd/MaaEnd/blob/f2de4c61367ad03d4d8a13ce823139c6237f2a55/assets/resource/pipeline/Common/Button.json#L14-L20>
+- 如果引用的是 `MXU`、`MaaFramework` 或其他上游仓库，也用对应仓库的远端 `blob` 链接，用尖括号包裹，而不是本地文件行号。
 
 ## Example Heuristic
 
@@ -403,6 +403,6 @@ Translate the complete conclusion directly into English and paste it here. Note 
 - 如果用户日志与当前代码不一致，先按用户版本 tag 复核；若确认已修，再看修复是否已进入 tag / release：已发版建议升级，未发版建议等待 release。
 - 如果结论是“功能不支持”，必须给出代码级依据，例如任务控制器白名单、无效的 ADB pipeline、缺失的控制器分支或文档限制。
 - 如果回答里出现任务名、任务描述、选项名、提示文案，优先使用 `assets/locales/interface/zh_cn.json` 的中文文案；必要时才在括号里补原始 id。
-- 如果回答里引用了具体代码行，直接给远端 GitHub `blob` 行号链接，不要给本地路径加行号。
+- 如果回答里引用了具体代码行，直接给远端 GitHub `blob` 行号链接，用尖括号包裹，不要给本地路径加行号。
 - 如果日志和 issue 文字描述不一致，必须显式说明“证据未复现”还是“证据已复现但用户表述不精确”。
 - 如果证据表明问题已在新版本修复，明确建议用户升级；如果怀疑安装包、资源文件或配置损坏，明确建议重新下载或重建；如果判断为真实代码缺陷且暂无 workaround，明确建议等待开发者修复。
