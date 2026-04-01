@@ -615,5 +615,7 @@
     "resource/image/ProtocolSpace/OperatorEXPLow": "7a55f474b683c815b4bd67a57a3cb1c46118136d96f0476c6a58988a633cf87b",
     "resource/image/ProtocolSpace/WeaponTuneLow": "52366c49c96306c57aa722621578e2e4b4c95c34af7fe9f423536e6ed97b22cf",
     "resource/image/ProtocolSpace/AdvancedProgression5Low": "565b817e34309adab9d469100c5b7a08f13fb2b32d838a0ff35c65b833dc8690",
-    "resource/image/ProtocolSpace/SkillUpLow": "23f78f30e3c637ebcdcc7bbf089f8170c6f58e0e4cbabe45a2b175a609e9d9c3"
+    "resource/image/ProtocolSpace/SkillUpLow": "23f78f30e3c637ebcdcc7bbf089f8170c6f58e0e4cbabe45a2b175a609e9d9c3",
+    "resource/image/SceneManager/ValuableEntry2": "3042bb1dcad48c788e3dd0067c69b402a9ef46c015f20c806f09753db7463633",
+    "resource/image/SceneManager/ShoppingEntry2": "d43bb36e4adbb6cb206efcb6e7ba9108acad4fc94448f794526f217ff9138d86"
 }
