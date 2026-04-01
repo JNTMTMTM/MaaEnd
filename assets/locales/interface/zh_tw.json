@@ -423,6 +423,7 @@
     "task.ItemTransfer.item_not_found": "未能找到目標物品，已回頂但識別失敗",
     "task.ItemTransfer.bag_return_completed": "目標倉庫已滿，剩餘物品已被放回原倉庫",
     "option.ItemTransferWhatToTransfer.label": "要搬運的物品",
+    "item.CuprumOre": "赤銅礦",
     "item.FerriumOre": "藍鐵礦",
     "item.OriginiumOre": "源礦",
     "item.AmethystOre": "紫晶礦",

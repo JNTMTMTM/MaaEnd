@@ -431,6 +431,7 @@
     "option.DailyTaskAssemble.desc": "活躍度を稼ぐため、最低レベルの装備を1回自動で製造します。",
     "option.DailyTaskCreation.label": "道具製作",
     "option.DailyTaskCreation.desc": "活躍度を稼ぐため、道具製作を1回自動で行います。",
+    "item.CuprumOre": "赤銅鉱物",
     "item.FerriumOre": "青鉄鉱物",
     "item.OriginiumOre": "源石鉱物",
     "item.AmethystOre": "紫晶鉱物",
