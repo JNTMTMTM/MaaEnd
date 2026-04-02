@@ -246,7 +246,7 @@
         },
         "post_delay": 0,
         "next": [
-            "__ScenePrivateMapWulingWulingCityEnterWorldAnchor",
+            "__ScenePrivateMapWulingWulingCityEnterWorldAnchorWithPick",
             "[JumpBack]SceneEnterMapWulingWulingCity"
         ]
     },
@@ -258,7 +258,7 @@
         },
         "post_delay": 0,
         "next": [
-            "__ScenePrivateMapWulingWulingCityEnterWorldAnchor",
+            "__ScenePrivateMapWulingWulingCityEnterWorldAnchorWithPick",
             "[JumpBack]SceneEnterMapWulingWulingCity"
         ]
     },
