@@ -229,6 +229,7 @@
     },
     "AutoUseSpMedicationAdd": {
         "desc": "点击添加按钮",
+        "max_hit": 14, // 理智上限为1000，最高使用14+1次总共加600理智
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -252,8 +253,7 @@
         "next": [
             "AutoUseSpMedicationAdd", //loop until add button unavailable
             "AutoUseSpMedicationCantAdd"
-        ],
-        "max_hit": 14 // 理智上限为1000，最高使用14+1次总共加600理智
+        ]
     },
     "AutoUseSpMedicationCantAdd": {
         "desc": "无法添加",
