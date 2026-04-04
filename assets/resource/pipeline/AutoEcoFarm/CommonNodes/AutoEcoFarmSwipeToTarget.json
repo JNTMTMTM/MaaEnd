@@ -51,9 +51,9 @@
             "param": {
                 "roi": [
                     620,
-                    300,
+                    100,
                     40,
-                    100
+                    300
                 ],
                 "template": "AutoEcoFarm/AutoEcoFarmFarmland.png",
                 "threshold": 0.4
@@ -124,6 +124,18 @@
                     "탐색|공업"
                 ],
                 "threshold": 0.7
+            }
+        },
+        "next": [
+            "_AutoEcoFarmResetSwipeState"
+        ]
+    },
+    "_AutoEcoFarmResetSwipeState": {
+        "desc": "重置滑动目标状态",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "autoEcoFarmResetSwipeState"
             }
         },
         "next": [
