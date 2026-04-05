@@ -8,19 +8,19 @@
 
 当前实现主要分布在以下文件中：
 
-| 模块 | 路径 | 作用 |
-| --- | --- | --- |
-| 项目接口挂载 | `assets/interface.json` | 将 `tasks/DijiangRewards.json` 挂到 `daily` 任务组 |
-| 任务与选项定义 | `assets/tasks/DijiangRewards.json` | 定义任务入口、界面选项、子选项和 `pipeline_override` |
-| 任务入口 | `assets/resource/pipeline/DijiangRewards/Entry.json` | 从任务入口进入帝江号总控中枢 |
-| 主流程分发 | `assets/resource/pipeline/DijiangRewards/MainFlow.json` | 从总控中枢依次分发到四个子阶段 |
-| 恢复心情 | `assets/resource/pipeline/DijiangRewards/RecoveryEmotion.json` | 处理总控中枢的好友助力恢复心情 |
-| 会客室 | `assets/resource/pipeline/DijiangRewards/ReceptionRoom.json` | 处理线索收集、接收、放置、赠予、线索交流 |
-| 制造舱 | `assets/resource/pipeline/DijiangRewards/Manufacturing.json` | 处理收菜、补货、助力 |
-| 培养舱 | `assets/resource/pipeline/DijiangRewards/GrowthChamber.json` | 处理领取，以及普通培养 / 再次培养这两个互斥分支和提取基核 |
-| 公共状态模板 | `assets/resource/pipeline/DijiangRewards/Template/Location.json` | 维护各舱室界面定位节点 |
-| 公共文本模板 | `assets/resource/pipeline/DijiangRewards/Template/TextTemplate.json` | 维护按钮/状态文本 OCR 模板 |
-| 补充状态模板 | `assets/resource/pipeline/DijiangRewards/Template/Status.json` | 维护红点、数量、培养库存等辅助识别 |
+| 模块           | 路径                                                                 | 作用                                                      |
+| -------------- | -------------------------------------------------------------------- | --------------------------------------------------------- |
+| 项目接口挂载   | `assets/interface.json`                                              | 将 `tasks/DijiangRewards.json` 挂到 `daily` 任务组        |
+| 任务与选项定义 | `assets/tasks/DijiangRewards.json`                                   | 定义任务入口、界面选项、子选项和 `pipeline_override`      |
+| 任务入口       | `assets/resource/pipeline/DijiangRewards/Entry.json`                 | 从任务入口进入帝江号总控中枢                              |
+| 主流程分发     | `assets/resource/pipeline/DijiangRewards/MainFlow.json`              | 从总控中枢依次分发到四个子阶段                            |
+| 恢复心情       | `assets/resource/pipeline/DijiangRewards/RecoveryEmotion.json`       | 处理总控中枢的好友助力恢复心情                            |
+| 会客室         | `assets/resource/pipeline/DijiangRewards/ReceptionRoom.json`         | 处理线索收集、接收、放置、赠予、线索交流                  |
+| 制造舱         | `assets/resource/pipeline/DijiangRewards/Manufacturing.json`         | 处理收菜、补货、助力                                      |
+| 培养舱         | `assets/resource/pipeline/DijiangRewards/GrowthChamber.json`         | 处理领取，以及普通培养 / 再次培养这两个互斥分支和提取基核 |
+| 公共状态模板   | `assets/resource/pipeline/DijiangRewards/Template/Location.json`     | 维护各舱室界面定位节点                                    |
+| 公共文本模板   | `assets/resource/pipeline/DijiangRewards/Template/TextTemplate.json` | 维护按钮/状态文本 OCR 模板                                |
+| 补充状态模板   | `assets/resource/pipeline/DijiangRewards/Template/Status.json`       | 维护红点、数量、培养库存等辅助识别                        |
 
 ## 总体执行逻辑
 
@@ -28,10 +28,10 @@
 
 1. 先通过 `SceneEnterMenuDijiangControlNexus` 进入帝江号总控中枢。
 2. 命中 `MainFlow.json` 中的 `ControlNexus` 后，按 `next` 顺序依次尝试四个阶段：
-   1. `[JumpBack]RecoveryEmotionMain`
-   2. `[JumpBack]ReceptionRoomMain`
-   3. `[JumpBack]MFGCabinMain`
-   4. `[JumpBack]GrowthChamberMain`
+    1. `[JumpBack]RecoveryEmotionMain`
+    2. `[JumpBack]ReceptionRoomMain`
+    3. `[JumpBack]MFGCabinMain`
+    4. `[JumpBack]GrowthChamberMain`
 3. 每个阶段完成后都回到 `InDijiangControlNexus`，再继续检查下一个阶段。
 4. 当前面四个阶段都不再命中时，进入 `FinishDijiangRewards` 结束。
 
@@ -60,11 +60,11 @@
 
 1. 先兜底处理“情报交流结束”弹窗。
 2. 在 `ReceptionRoomViewIn` 中依次尝试：
-   1. 收集线索
-   2. 接收线索
-   3. 放置/替换线索
-   4. 开始线索交流
-   5. 退出会客室
+    1. 收集线索
+    2. 接收线索
+    3. 放置/替换线索
+    4. 开始线索交流
+    5. 退出会客室
 
 其中“赠予线索”并不是一个顶层阶段，而是线索溢出后的处理分支：
 
@@ -99,15 +99,15 @@
 2. 如果画面上出现“全部收取”，就先领取作物（`GrowthChamberClaimReward`）。
 3. 如果当前配置允许普通培养，并且能识别到“培养”按钮，就进入选材界面（`GrowthChamberGrow`）。这里不是批量培养，而是在 9 个培养目标中挑一个继续处理。
 4. 进入选材界面后，会按这个顺序循环尝试（`GrowthChamberGrowViewIn`）：
-   1. 如有需要，先调整排序方式或排序方向（`GrowthChamberSortBy`、`GrowthChamberSortOrder`）
-   2. 在当前列表里寻找符合条件的目标（`GrowthChamberFindTarget`）
-   3. 当前屏没找到就向下滚一屏继续找（`GrowthChamberTargetNotFound`）
-   4. 如果已经没有可做动作，就返回培养舱详情页（`GrowthChamberReturn`）
+    1. 如有需要，先调整排序方式或排序方向（`GrowthChamberSortBy`、`GrowthChamberSortOrder`）
+    2. 在当前列表里寻找符合条件的目标（`GrowthChamberFindTarget`）
+    3. 当前屏没找到就向下滚一屏继续找（`GrowthChamberTargetNotFound`）
+    4. 如果已经没有可做动作，就返回培养舱详情页（`GrowthChamberReturn`）
 5. 真正执行点击前，任务会先确认这一行同时满足两个条件：名称符合当前配置的目标范围，并且这一行的“作物数量”或“基核数量”至少有一个大于 0（`GrowthChamberSelectTarget` + `GrowthChamberCheckTargetNotEmpty`；后者默认等价于 `GrowthChamberCheckSeedNotEmpty` 或 `GrowthChamberCheckPlantNotEmpty`）。
 6. 点击目标后，会根据后续画面进入三个互斥结果之一：
-   1. 可以直接开始培养，就点确认开始培养（`GrowthChamberGrowConfirm`）
-   2. 需要先补基核，就进入“前往提取基核”分支（`GrowthChamberSeedExtract`）
-   3. 当前配置不允许提取基核，就直接退回列表（`GrowthChamberGrowExit`）
+    1. 可以直接开始培养，就点确认开始培养（`GrowthChamberGrowConfirm`）
+    2. 需要先补基核，就进入“前往提取基核”分支（`GrowthChamberSeedExtract`）
+    3. 当前配置不允许提取基核，就直接退回列表（`GrowthChamberGrowExit`）
 7. 一次处理完成后，会回到培养舱详情页或选材页，再继续判断是否还有后续动作（回到 `GrowthChamberViewIn` 或 `GrowthChamberGrowViewIn`）。
 
 真正需要重点维护的是第 4 到第 6 步，因为这里的“排序谁来开、找什么目标、什么情况下允许点进去、点进去后要不要提取基核”，几乎都由 `interface` 选项决定。
@@ -277,20 +277,20 @@
 如果把培养舱真正执行的动作按 `interface` 配置串起来，可以得到下面这套心智模型：
 
 1. `SelectToGrow` 先决定是：
-   1. 不培养
-   2. 再次培养
-   3. 普通培养
+    1. 不培养
+    2. 再次培养
+    3. 普通培养
 2. 如果进入普通培养流程，再细分为：
-   1. 任意目标培养
-   2. 固定材料培养
+    1. 任意目标培养
+    2. 固定材料培养
 3. 如果进入普通培养流程：
-   1. `Any` 模式下，先用 `SortBy` + `SortOrder` 决定列表顺序
-   2. 再用“目标名称匹配规则”决定“找谁”（`GrowthChamberSelectTarget`）
-   3. 再用 `AutoExtractSeed` 决定“只有基核可用算可处理”，还是“作物本体也能接受、后续可提取基核”
+    1. `Any` 模式下，先用 `SortBy` + `SortOrder` 决定列表顺序
+    2. 再用“目标名称匹配规则”决定“找谁”（`GrowthChamberSelectTarget`）
+    3. 再用 `AutoExtractSeed` 决定“只有基核可用算可处理”，还是“作物本体也能接受、后续可提取基核”
 4. 找到目标后：
-   1. 能直接培养就确认培养
-   2. 需要提取基核且允许提取，就走提取分支
-   3. 需要提取基核但不允许提取，就返回列表
+    1. 能直接培养就确认培养
+    2. 需要提取基核且允许提取，就走提取分支
+    3. 需要提取基核但不允许提取，就返回列表
 
 所以维护者在看培养舱问题时，最好优先先问 3 个问题：
 
@@ -324,10 +324,10 @@
 
 ### AutoStartExchange
 
-| 配置 | 覆盖节点 | 覆盖内容 | 原因 |
-| --- | --- | --- | --- |
-| `Yes` | `ReceptionRoomStartExchange` | `enabled=true` | 允许基建任务在会客室内直接开启线索交流 |
-| `No` | `ReceptionRoomStartExchange` | `enabled=false` | 默认不主动开启线索交流，把开启时机留给信用点联动任务 |
+| 配置  | 覆盖节点                     | 覆盖内容        | 原因                                                 |
+| ----- | ---------------------------- | --------------- | ---------------------------------------------------- |
+| `Yes` | `ReceptionRoomStartExchange` | `enabled=true`  | 允许基建任务在会客室内直接开启线索交流               |
+| `No`  | `ReceptionRoomStartExchange` | `enabled=false` | 默认不主动开启线索交流，把开启时机留给信用点联动任务 |
 
 设计原因：
 
@@ -337,13 +337,13 @@
 
 ### StageTaskSetting 及四个阶段开关
 
-| 选项 | 覆盖节点 | 覆盖内容 | 原因 |
-| --- | --- | --- | --- |
-| `StageTaskSetting=Yes` | 无直接 Pipeline 覆盖 | 只展开子选项 | 把“高级阶段控制”折叠起来，避免普通用户面对过多开关 |
-| `RecoveryEmotionStage` | `RecoveryEmotionMain` | `enabled=true/false` | 控制是否执行恢复心情阶段 |
-| `ReceptionRoomStage` | `ReceptionRoomMain` | `enabled=true/false` | 控制是否执行会客室阶段 |
-| `ManufacturingStage` | `MFGCabinMain` | `enabled=true/false` | 控制是否执行制造舱阶段 |
-| `GrowthChamberStage` | `GrowthChamberMain` | `enabled=true/false` | 控制是否执行培养舱阶段 |
+| 选项                   | 覆盖节点              | 覆盖内容             | 原因                                               |
+| ---------------------- | --------------------- | -------------------- | -------------------------------------------------- |
+| `StageTaskSetting=Yes` | 无直接 Pipeline 覆盖  | 只展开子选项         | 把“高级阶段控制”折叠起来，避免普通用户面对过多开关 |
+| `RecoveryEmotionStage` | `RecoveryEmotionMain` | `enabled=true/false` | 控制是否执行恢复心情阶段                           |
+| `ReceptionRoomStage`   | `ReceptionRoomMain`   | `enabled=true/false` | 控制是否执行会客室阶段                             |
+| `ManufacturingStage`   | `MFGCabinMain`        | `enabled=true/false` | 控制是否执行制造舱阶段                             |
+| `GrowthChamberStage`   | `GrowthChamberMain`   | `enabled=true/false` | 控制是否执行培养舱阶段                             |
 
 设计原因：
 
@@ -353,13 +353,13 @@
 
 ### ClueSetting、ClueSend、ClueStockLimit
 
-| 选项 | 覆盖节点 | 覆盖内容 | 原因 |
-| --- | --- | --- | --- |
-| `ClueSetting=Yes` | 无直接 Pipeline 覆盖 | 展开 `ClueSend`、`ClueStockLimit` | 允许用户自定义赠送策略 |
-| `ClueSetting=No` | `ReceptionRoomSendCluesSelectClues` | `max_hit=3` | 默认最多赠送 3 次，限制单次任务的赠送规模 |
-| `ClueSetting=No` | `ClueItemCount` | `expected=^(?:[3-9]\|[1-9]\\d+)$` | 默认单种线索库存大于等于 3 才赠送，也就是“每种保留 2 个” |
-| `ClueSend` | `ReceptionRoomSendCluesSelectClues` | `max_hit={MaxClueSend}` | 把“最多赠送几次”直接映射到节点命中次数 |
-| `ClueStockLimit=1/2` | `ClueItemCount` | 改 OCR 正则阈值 | 把“库存上限”落实到赠送目标筛选条件 |
+| 选项                 | 覆盖节点                            | 覆盖内容                          | 原因                                                     |
+| -------------------- | ----------------------------------- | --------------------------------- | -------------------------------------------------------- |
+| `ClueSetting=Yes`    | 无直接 Pipeline 覆盖                | 展开 `ClueSend`、`ClueStockLimit` | 允许用户自定义赠送策略                                   |
+| `ClueSetting=No`     | `ReceptionRoomSendCluesSelectClues` | `max_hit=3`                       | 默认最多赠送 3 次，限制单次任务的赠送规模                |
+| `ClueSetting=No`     | `ClueItemCount`                     | `expected=^(?:[3-9]\|[1-9]\\d+)$` | 默认单种线索库存大于等于 3 才赠送，也就是“每种保留 2 个” |
+| `ClueSend`           | `ReceptionRoomSendCluesSelectClues` | `max_hit={MaxClueSend}`           | 把“最多赠送几次”直接映射到节点命中次数                   |
+| `ClueStockLimit=1/2` | `ClueItemCount`                     | 改 OCR 正则阈值                   | 把“库存上限”落实到赠送目标筛选条件                       |
 
 设计原因：
 
@@ -378,18 +378,18 @@
 
 #### 1. `DoNothing`
 
-| 覆盖节点 | 覆盖内容 | 原因 |
-| --- | --- | --- |
+| 覆盖节点            | 覆盖内容        | 原因                         |
+| ------------------- | --------------- | ---------------------------- |
 | `GrowthChamberGrow` | `enabled=false` | 只领培养奖励，不进入培养流程 |
 
 这是最直接的“关闭培养行为”模式。
 
 #### 2. `GrowAgain`
 
-| 覆盖节点 | 覆盖内容 | 原因 |
-| --- | --- | --- |
-| `GrowthChamberGrow` | `enabled=false` | 避免与普通培养入口冲突 |
-| `GrowthChamberGrowAgain` | `enabled=true` | 强制优先走“再次培养”分支 |
+| 覆盖节点                 | 覆盖内容        | 原因                     |
+| ------------------------ | --------------- | ------------------------ |
+| `GrowthChamberGrow`      | `enabled=false` | 避免与普通培养入口冲突   |
+| `GrowthChamberGrowAgain` | `enabled=true`  | 强制优先走“再次培养”分支 |
 
 设计原因：
 
@@ -398,10 +398,10 @@
 
 #### 3. `Any`
 
-| 覆盖节点 | 覆盖内容 | 原因 |
-| --- | --- | --- |
-| `GrowthChamberSelectTarget` | 把 `expected` 改成全材料多语言列表 | 允许在候选列表里匹配任意可培养目标 |
-| 展开子选项 | `AutoExtractSeed`、`SortBy`、`SortOrder` | 任意模式下需要额外决定选材顺序 |
+| 覆盖节点                    | 覆盖内容                                 | 原因                               |
+| --------------------------- | ---------------------------------------- | ---------------------------------- |
+| `GrowthChamberSelectTarget` | 把 `expected` 改成全材料多语言列表       | 允许在候选列表里匹配任意可培养目标 |
+| 展开子选项                  | `AutoExtractSeed`、`SortBy`、`SortOrder` | 任意模式下需要额外决定选材顺序     |
 
 设计原因：
 
@@ -432,13 +432,13 @@
 
 ### AutoExtractSeed
 
-| 配置 | 覆盖节点 | 覆盖内容 | 原因 |
-| --- | --- | --- | --- |
-| `Yes` | `GrowthChamberSeedExtract` | `enabled=true` | 允许在无基核时进入提取基核流程 |
-| `Yes` | `GrowthChamberGrowExit` | `enabled=false` | 避免命中“不提取直接返回”分支 |
-| `No` | `GrowthChamberCheckTargetNotEmpty` | 改为只要求 `GrowthChamberCheckSeedNotEmpty` | 不提取基核时，只应选择已有基核的目标 |
-| `No` | `GrowthChamberSeedExtract` | `enabled=false` | 禁止进入提取基核分支 |
-| `No` | `GrowthChamberGrowExit` | `enabled=true` | 在“前往提取基核”界面直接返回列表 |
+| 配置  | 覆盖节点                           | 覆盖内容                                    | 原因                                 |
+| ----- | ---------------------------------- | ------------------------------------------- | ------------------------------------ |
+| `Yes` | `GrowthChamberSeedExtract`         | `enabled=true`                              | 允许在无基核时进入提取基核流程       |
+| `Yes` | `GrowthChamberGrowExit`            | `enabled=false`                             | 避免命中“不提取直接返回”分支         |
+| `No`  | `GrowthChamberCheckTargetNotEmpty` | 改为只要求 `GrowthChamberCheckSeedNotEmpty` | 不提取基核时，只应选择已有基核的目标 |
+| `No`  | `GrowthChamberSeedExtract`         | `enabled=false`                             | 禁止进入提取基核分支                 |
+| `No`  | `GrowthChamberGrowExit`            | `enabled=true`                              | 在“前往提取基核”界面直接返回列表     |
 
 设计原因：
 
@@ -452,11 +452,11 @@
 
 #### SortBy
 
-| case | 覆盖节点 | 覆盖内容 | 原因 |
-| --- | --- | --- | --- |
-| `Default` / `AmountOwned` / `AmountOfSeeds` / `Quality` | `GrowthChamberSortBy` | 修改当前排序按钮应识别到的“非目标选项”文本 | 只有在当前排序不是目标值时才点击展开排序面板 |
-| 同上 | `GrowthChamberSortByChoose` | 修改排序面板里要点击的目标文案 | 指向真正要切换成的排序方式 |
-| `Default` | `GrowthChamberSortBySwipe` | `enabled=false` | 默认项通常无需额外滚动 |
+| case                                                    | 覆盖节点                    | 覆盖内容                                   | 原因                                         |
+| ------------------------------------------------------- | --------------------------- | ------------------------------------------ | -------------------------------------------- |
+| `Default` / `AmountOwned` / `AmountOfSeeds` / `Quality` | `GrowthChamberSortBy`       | 修改当前排序按钮应识别到的“非目标选项”文本 | 只有在当前排序不是目标值时才点击展开排序面板 |
+| 同上                                                    | `GrowthChamberSortByChoose` | 修改排序面板里要点击的目标文案             | 指向真正要切换成的排序方式                   |
+| `Default`                                               | `GrowthChamberSortBySwipe`  | `enabled=false`                            | 默认项通常无需额外滚动                       |
 
 设计原因：
 
@@ -466,10 +466,10 @@
 
 #### SortOrder
 
-| case | 覆盖节点 | 覆盖内容 | 原因 |
-| --- | --- | --- | --- |
-| `ASC` | `GrowthChamberSortOrder.expected` | 识别当前按钮上是“降序/DESC” | 因为想要升序时，只在当前是降序时才点击 |
-| `DESC` | `GrowthChamberSortOrder.expected` | 识别当前按钮上是“升序/ASC” | 因为想要降序时，只在当前是升序时才点击 |
+| case   | 覆盖节点                          | 覆盖内容                    | 原因                                   |
+| ------ | --------------------------------- | --------------------------- | -------------------------------------- |
+| `ASC`  | `GrowthChamberSortOrder.expected` | 识别当前按钮上是“降序/DESC” | 因为想要升序时，只在当前是降序时才点击 |
+| `DESC` | `GrowthChamberSortOrder.expected` | 识别当前按钮上是“升序/ASC”  | 因为想要降序时，只在当前是升序时才点击 |
 
 设计原因：
 

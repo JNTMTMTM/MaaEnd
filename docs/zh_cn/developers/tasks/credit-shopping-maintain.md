@@ -8,20 +8,20 @@
 
 当前实现主要分布在以下文件中：
 
-| 模块 | 路径 | 作用 |
-| --- | --- | --- |
-| 项目接口挂载 | `assets/interface.json` | 将 `tasks/CreditShopping.json` 挂到 `daily` 任务组 |
-| 任务与选项定义 | `assets/tasks/CreditShopping.json` | 定义任务入口、界面选项、子选项和 `pipeline_override` |
-| 任务入口 | `assets/resource/pipeline/CreditShopping/GoToShop.json` | 负责进入商店并切到信用交易所页签 |
-| 领取信用 | `assets/resource/pipeline/CreditShopping/ClaimCredit.json` | 负责领取待收取信用并关闭奖励弹窗 |
-| 商品扫描主循环 | `assets/resource/pipeline/CreditShopping/Shopping.json` | 负责初始化参数、扫描商品、按优先级购买、刷新或结束 |
-| 商品列表识别 | `assets/resource/pipeline/CreditShopping/Item.json` | 负责识别商品图标、是否售罄、是否买得起、商品名与折扣 |
-| 购买弹窗流程 | `assets/resource/pipeline/CreditShopping/BuyItem.json` | 负责购买确认、购买失败处理与回到商品列表 |
-| 购买结果聚焦 | `assets/resource/pipeline/CreditShopping/BuyItemFocus.json` | 在购买弹窗中识别具体买到的商品并记录 focus |
-| 刷新相关识别 | `assets/resource/pipeline/CreditShopping/Reflash.json` | 负责识别刷新按钮、刷新花费与“无法刷新”状态 |
-| 获取信用点联动 | `assets/resource/pipeline/DijiangRewards/NeedCredit.json` | 在信用不足时回基建开启线索交流或赠予线索获取信用 |
-| Go 参数解析 | `agent/go-service/creditshopping/creditshopping.go` | 将任务选项写入的 `attach` 关键词合并成 OCR 正则并覆盖 Pipeline |
-| 多语言文案 | `assets/locales/interface/*.json` | `CreditShopping` 任务与选项文案 |
+| 模块           | 路径                                                        | 作用                                                           |
+| -------------- | ----------------------------------------------------------- | -------------------------------------------------------------- |
+| 项目接口挂载   | `assets/interface.json`                                     | 将 `tasks/CreditShopping.json` 挂到 `daily` 任务组             |
+| 任务与选项定义 | `assets/tasks/CreditShopping.json`                          | 定义任务入口、界面选项、子选项和 `pipeline_override`           |
+| 任务入口       | `assets/resource/pipeline/CreditShopping/GoToShop.json`     | 负责进入商店并切到信用交易所页签                               |
+| 领取信用       | `assets/resource/pipeline/CreditShopping/ClaimCredit.json`  | 负责领取待收取信用并关闭奖励弹窗                               |
+| 商品扫描主循环 | `assets/resource/pipeline/CreditShopping/Shopping.json`     | 负责初始化参数、扫描商品、按优先级购买、刷新或结束             |
+| 商品列表识别   | `assets/resource/pipeline/CreditShopping/Item.json`         | 负责识别商品图标、是否售罄、是否买得起、商品名与折扣           |
+| 购买弹窗流程   | `assets/resource/pipeline/CreditShopping/BuyItem.json`      | 负责购买确认、购买失败处理与回到商品列表                       |
+| 购买结果聚焦   | `assets/resource/pipeline/CreditShopping/BuyItemFocus.json` | 在购买弹窗中识别具体买到的商品并记录 focus                     |
+| 刷新相关识别   | `assets/resource/pipeline/CreditShopping/Reflash.json`      | 负责识别刷新按钮、刷新花费与“无法刷新”状态                     |
+| 获取信用点联动 | `assets/resource/pipeline/DijiangRewards/NeedCredit.json`   | 在信用不足时回基建开启线索交流或赠予线索获取信用               |
+| Go 参数解析    | `agent/go-service/creditshopping/creditshopping.go`         | 将任务选项写入的 `attach` 关键词合并成 OCR 正则并覆盖 Pipeline |
+| 多语言文案     | `assets/locales/interface/*.json`                           | `CreditShopping` 任务与选项文案                                |
 
 ## 总体执行逻辑
 
@@ -30,19 +30,19 @@
 1. 先尝试命中 `CreditShoppingShopping`，若已在信用交易所页则直接进入扫描循环。
 2. 若当前仅处于商店页面，则通过 `CreditShoppingCheckShopPage` 点击信用交易所页签。
 3. 进入页签后先经过 `ClaimCredit.json`：
-   1. 有待领取信用时点击 `CreditShoppingClaimCredit`
-   2. 没有待领取信用时命中 `CreditShoppingNoCreditClaim`
+    1. 有待领取信用时点击 `CreditShoppingClaimCredit`
+    2. 没有待领取信用时命中 `CreditShoppingNoCreditClaim`
 4. 回到 `Shopping.json` 的 `CreditShoppingShopping` 后，先执行一次 `CreditShoppingInit`。
 5. `CreditShoppingInit` 通过自定义动作 `CreditShoppingParseParams` 读取节点 `attach`，生成当前运行时的白名单 OCR 正则。
 6. 后续循环进入 `CreditShoppingScanItem`，按固定顺序判断：
-   1. 是否需要先去补信用点
-   2. 是否命中优先购买 1
-   3. 是否触发保留信用点阈值
-   4. 是否命中优先购买 2
-   5. 是否命中优先购买 3
-   6. 是否因刷新策略进入“已用尽刷新次数后直接买”或“稳健刷新改直购”
-   7. 是否按强制策略购买黑名单或执行刷新
-   8. 若以上都不命中，则结束任务
+    1. 是否需要先去补信用点
+    2. 是否命中优先购买 1
+    3. 是否触发保留信用点阈值
+    4. 是否命中优先购买 2
+    5. 是否命中优先购买 3
+    6. 是否因刷新策略进入“已用尽刷新次数后直接买”或“稳健刷新改直购”
+    7. 是否按强制策略购买黑名单或执行刷新
+    8. 若以上都不命中，则结束任务
 
 这里最关键的设计点是：
 
