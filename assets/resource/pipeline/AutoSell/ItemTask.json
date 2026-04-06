@@ -36,6 +36,7 @@
         "all_of": [
             "AutoSellStockRedistributionItemTicketByText",
             {
+                "sub_name": "count_text",
                 "recognition": "ColorMatch",
                 "roi": "AutoSellStockRedistributionItemTicketByText",
                 "roi_offset": [
@@ -54,8 +55,7 @@
                     54,
                     54
                 ],
-                "count": 500,
-                "sub_name": "count_text"
+                "count": 500
             },
             {
                 "recognition": "OCR",
@@ -72,14 +72,14 @@
             }
         ],
         "pre_delay": 0,
-        "post_delay": 0,
-        "rate_limit": 0,
         "action": "Custom",
         "custom_action": "AutoSellItemRecordAction",
         "custom_action_param": {
             "item_name": "锚点厨具货组",
             "record_type": "record"
         },
+        "post_delay": 0,
+        "rate_limit": 0,
         "next": [
             "AutoSellStockRedistributionItemNext"
         ],
@@ -154,14 +154,14 @@
         ],
         "pre_wait_freezes": 100,
         "pre_delay": 0,
-        "post_delay": 0,
-        "rate_limit": 0,
         "action": "Custom",
         "custom_action": "AutoSellItemRecordAction",
         "custom_action_param": {
             "item_name": "锚点厨具货组",
             "record_type": "record"
         },
+        "post_delay": 0,
+        "rate_limit": 0,
         "next": [
             "AutoSellFriendsPricesBackToView0"
         ],
@@ -490,8 +490,6 @@
         ],
         "box_index": 2,
         "pre_delay": 0,
-        "post_delay": 0,
-        "rate_limit": 0,
         "action": "Click",
         // item左右20个像素无法点击
         "target_offset": [
@@ -500,6 +498,8 @@
             -40,
             0
         ],
+        "post_delay": 0,
+        "rate_limit": 0,
         "next": [
             "AutoSellSellGoodsOpenSuccess"
         ],

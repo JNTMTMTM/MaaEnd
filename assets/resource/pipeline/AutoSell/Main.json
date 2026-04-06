@@ -118,6 +118,7 @@
         "recognition": "And",
         "all_of": [
             {
+                "sub_name": "icon",
                 "recognition": "TemplateMatch",
                 "roi": [
                     0,
@@ -129,8 +130,7 @@
                     "AutoSell/StockRedistributionValleyIVChoose.png",
                     "AutoSell/StockRedistributionValleyIVNotChoose.png"
                 ],
-                "threshold": 0.9,
-                "sub_name": "icon"
+                "threshold": 0.9
             },
             {
                 "recognition": "ColorMatch",
@@ -166,6 +166,7 @@
         "recognition": "And",
         "all_of": [
             {
+                "sub_name": "icon",
                 "recognition": "TemplateMatch",
                 "roi": [
                     0,
@@ -177,8 +178,7 @@
                     "AutoSell/StockRedistributionWulingChoose.png",
                     "AutoSell/StockRedistributionWulingNotChoose.png"
                 ],
-                "threshold": 0.9,
-                "sub_name": "icon"
+                "threshold": 0.9
             },
             {
                 "recognition": "ColorMatch",
