@@ -410,7 +410,7 @@
     "option.DailyTaskUpgradeWeapon.label": "武器レベルアップ",
     "option.DailyTaskUpgradeWeapon.desc": "活躍度を稼ぐため、最低レベルの武器を1回自動でレベルアップします。",
     "option.DailyTaskAssemble.label": "装備製造",
-    "option.DailyTaskAssemble.desc": "活躍度を稼ぐため、最低レベルの装備を1回自動で製造します。",
+    "option.DailyTaskAssemble.desc": "活躍度を稼ぐため、製造可能な最低レベルの装備を1回自動で製造します。",
     "option.DailyTaskCreation.label": "道具製作",
     "option.DailyTaskCreation.desc": "活躍度を稼ぐため、道具製作を1回自動で行います。",
     "item.CuprumOre": "赤銅鉱物",

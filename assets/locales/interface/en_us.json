@@ -257,7 +257,7 @@
     "option.DailyTaskUpgradeWeapon.label": "Weapon Upgrade",
     "option.DailyTaskUpgradeWeapon.desc": "Automatically level up the lowest-level weapon once to earn activity points.",
     "option.DailyTaskAssemble.label": "Assemble Gear",
-    "option.DailyTaskAssemble.desc": "Automatically assemble the lowest-level gear once to earn activity points.",
+    "option.DailyTaskAssemble.desc": "Automatically assemble the lowest-level craftable gear once to earn activity points.",
     "option.DailyTaskCreation.label": "Simple Crafting",
     "option.DailyTaskCreation.desc": "Automatically perform simple crafting once to earn activity points.",
     "task.AutoSell.label": "💰Sell elastic demand supplies",

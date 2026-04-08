@@ -556,7 +556,7 @@
     "option.DailyTaskUpgradeWeapon.label": "升級武器",
     "option.DailyTaskUpgradeWeapon.desc": "自動升級一次最低等級的武器以獲取活躍度",
     "option.DailyTaskAssemble.label": "裝備製造",
-    "option.DailyTaskAssemble.desc": "自動製造一次最低等級的裝備以獲取活躍度",
+    "option.DailyTaskAssemble.desc": "自動製造一次最低等級的可製造裝備以獲取活躍度",
     "option.DailyTaskCreation.label": "簡易製作",
     "option.DailyTaskCreation.desc": "自動進行一次簡易製作以獲取活躍度",
     "description.file": "locales/interface/DESCRIPTION/DESCRIPTION.zh_tw.md",

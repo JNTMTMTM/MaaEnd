@@ -525,7 +525,7 @@
     "option.DailyTaskUpgradeWeapon.label": "升级武器",
     "option.DailyTaskUpgradeWeapon.desc": "自动升级一次最低级的武器刷活跃度",
     "option.DailyTaskAssemble.label": "制造装备",
-    "option.DailyTaskAssemble.desc": "自动制造最低级的装备一次刷活跃度",
+    "option.DailyTaskAssemble.desc": "自动制造最低级的可制造装备一次刷活跃度",
     "option.DailyTaskCreation.label": "简易制作",
     "option.DailyTaskCreation.desc": "自动一次制作来刷活跃度",
     "task.AutoUseSpMedication.description": "自动使用一次应急理智加强剂(+40理智)",
