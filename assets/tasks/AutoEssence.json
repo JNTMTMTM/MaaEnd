@@ -74,8 +74,7 @@
                 {
                     "name": "ObtainScaling1",
                     "label": "$option.AutoEssenceObtainMode.cases.ObtainScaling1.label",
-                    "pipeline_override": {
-                    }
+                    "pipeline_override": {}
                 },
                 {
                     "name": "ObtainScaling2",
