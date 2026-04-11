@@ -8,6 +8,7 @@ import (
 	"math"
 	"regexp"
 	"sync"
+	"time"
 
 	mt "github.com/MaaXYZ/MaaEnd/agent/go-service/map-tracker/internal"
 	"github.com/MaaXYZ/MaaEnd/agent/go-service/pkg/control"
@@ -282,6 +283,7 @@ func (a *MapTrackerBigMapPick) doAutoZoom(ctx *maa.Context, ctrl *maa.Controller
 		cx := int(math.Round((zoomOutX + zoomInX) / 2.0))
 		cy := int(math.Round(zoomInY + (zoomOutY-zoomInY)*0.7))
 		ca.TouchClick(0, cx, cy, 100, 0)
+		time.Sleep(333 * time.Millisecond) // Wait for UI response
 		log.Info().Float64("outVal", outVal).Float64("inVal", inVal).Msg("Auto zoom adjusted by clicking slider area")
 		return nil
 	}
@@ -294,6 +296,7 @@ func (a *MapTrackerBigMapPick) doAutoZoom(ctx *maa.Context, ctrl *maa.Controller
 		cx := int(math.Round(matchX + float64(tpl.Rect.Dx())/2.0))
 		cy := int(math.Round(matchY + float64(tpl.Rect.Dy())/2.0))
 		ca.TouchClick(0, cx, cy, 200, 0)
+		time.Sleep(333 * time.Millisecond) // Wait for UI response
 	}
 
 	if outMatched {
