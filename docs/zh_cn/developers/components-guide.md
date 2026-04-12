@@ -17,7 +17,7 @@ MaaEnd 基于 [MaaFramework](https://github.com/MaaXYZ/MaaFramework)，主体流
 
 `界面任务(Task) → 进入 Pipeline 节点 → 识别/操作循环 → 必要时调用 Go 自定义逻辑`
 
-**大多数功能修改优先落在 Task + Pipeline，不是先写 Go。**
+**大多数功能修改优先写在 Task + Pipeline，不是先写 Go。**
 
 ## 判断"这次改动该改哪"
 

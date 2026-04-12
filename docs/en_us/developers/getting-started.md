@@ -259,8 +259,8 @@ Add task name/description keys under `assets/locales/interface/`. Example:
 
 ```json
 {
-    "task.SellProduct.label": "🛒售卖产品",
-    "task.SellProduct.description": "使用产品在各个据点兑换对应调度券\n您可以在任务选项中启用或停用特定地区的销售功能。"
+    "task.SellProduct.label": "🛒 Sell Products",
+    "task.SellProduct.description": "Use products at various outposts to exchange for corresponding procurement vouchers.\nTask options allow you to enable or disable sales features in specific regions."
 }
 ```
 
