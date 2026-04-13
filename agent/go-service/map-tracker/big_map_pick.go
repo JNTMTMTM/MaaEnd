@@ -129,15 +129,11 @@ func (a *MapTrackerBigMapPick) Run(ctx *maa.Context, arg *maa.CustomActionArg) b
 			return true
 		}
 
-		if attempt == mt.BIG_MAP_PICK_RETRY {
-			break
-		}
-
 		centerX := (inferRes.ViewPort.Left + inferRes.ViewPort.Right) * 0.5
 		centerY := (inferRes.ViewPort.Top + inferRes.ViewPort.Bottom) * 0.5
 		deltaInViewX := targetInViewX - centerX
 		deltaInViewY := targetInViewY - centerY
-		log.Warn().
+		log.Info().
 			Str("map", param.MapName).
 			Int("attempt", attempt).
 			Float64("targetInViewX", targetInViewX).
