@@ -46,7 +46,7 @@
         },
         "next": [
             "[JumpBack]SceneWaitLoadingExit",
-            "__ScenePrivateLoginMonthlyPassConfirm",
+            "[JumpBack]__ScenePrivateLoginMonthlyPassConfirm",
             "__ScenePrivateLoginSuccess",
             "[JumpBack]__ScenePrivateLoginCloseDialog"
         ]
