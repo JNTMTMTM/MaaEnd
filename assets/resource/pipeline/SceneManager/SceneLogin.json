@@ -118,10 +118,7 @@
                 ]
             }
         },
-        "pre_wait_freezes": {
-            "time": 600,
-            "timeout": 3000
-        },
+        "pre_delay": 1000, // 3d移动，pre_wait_freeze不生效
         "action": {
             "type": "Click"
         }
