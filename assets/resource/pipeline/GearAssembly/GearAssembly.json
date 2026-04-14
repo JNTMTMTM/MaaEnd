@@ -2,8 +2,6 @@
     "GearAssemblyStart": {
         "desc": "装备制作任务入口",
         "pre_delay": 0,
-        "post_delay": 0,
-        "rate_limit": 0,
         "action": "Custom",
         "custom_action": "SubTask",
         "custom_action_param": {
@@ -11,6 +9,8 @@
                 "SceneEnterMenuGearAssembly"
             ]
         },
+        "post_delay": 0,
+        "rate_limit": 0,
         "next": [
             "GearAssemblySetGear",
             "GearAssemblyNonsetGear"
@@ -18,9 +18,6 @@
     },
     "GearAssemblySetGear": {
         "desc": "套组装备",
-        "pre_delay": 0,
-        "post_delay": 0,
-        "rate_limit": 0,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -38,6 +35,7 @@
                 ]
             }
         },
+        "pre_delay": 0,
         "action": "Click",
         "post_wait_freezes": {
             "target": [
@@ -48,6 +46,8 @@
             ],
             "time": 200
         },
+        "post_delay": 0,
+        "rate_limit": 0,
         "next": [
             "[JumpBack]GearAssemblySwitchAscending",
             "GearAssemblySelectFirstGear"
@@ -55,9 +55,6 @@
     },
     "GearAssemblyNonsetGear": {
         "desc": "非套组装备",
-        "pre_delay": 0,
-        "post_delay": 0,
-        "rate_limit": 0,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -75,6 +72,7 @@
                 ]
             }
         },
+        "pre_delay": 0,
         "action": "Click",
         "post_wait_freezes": {
             "target": [
@@ -85,6 +83,8 @@
             ],
             "time": 200
         },
+        "post_delay": 0,
+        "rate_limit": 0,
         "next": [
             "[JumpBack]GearAssemblySwitchAscending",
             "GearAssemblySelectFirstGear"
@@ -92,13 +92,11 @@
     },
     "GearAssemblySelectFirstGear": {
         "desc": "选择第一个装备",
-        "pre_delay": 0,
-        "post_delay": 0,
-        "rate_limit": 0,
         "recognition": "And",
         "all_of": [
             "GearAssemblyGetFirstGearPosition"
         ],
+        "pre_delay": 0,
         "action": {
             "type": "Click",
             "param": {
@@ -120,6 +118,8 @@
             ],
             "time": 300
         },
+        "post_delay": 0,
+        "rate_limit": 0,
         "next": [
             "GearAssemblyClickProduceBtn",
             "GearAssemblyCheckFailedAndContinue"
@@ -150,7 +150,6 @@
             "type": "Click",
             "param": {}
         },
-        "post_delay": 0,
         "post_wait_freezes": {
             "target": [
                 -300,
@@ -160,6 +159,7 @@
             ],
             "time": 200
         },
+        "post_delay": 0,
         "rate_limit": 0
     },
     "GearAssemblyClickProduceBtn": {
@@ -425,12 +425,12 @@
         "pre_delay": 0,
         "post_delay": 0,
         "rate_limit": 0,
-        "focus": {
-            "Node.Action.Succeeded": "无法制作，查找下一个装备"
-        },
         "next": [
             "GearAssemblyCheckIfReachedScrollEnd",
             "GearAssemblySwipeToNextRow"
-        ]
+        ],
+        "focus": {
+            "Node.Action.Succeeded": "无法制作，查找下一个装备"
+        }
     }
 }

@@ -78,11 +78,11 @@ Current regions and tiers supported in the repository:
 
 The current `assets/tasks/AutoStockpile.json` exposes one server-time selector and two region toggles:
 
-| Task option               | Purpose                                                                                    |
-| ------------------------- | ------------------------------------------------------------------------------------------ |
-| `AutoStockpileServerTime` | Selects the server timezone by writing an integer UTC hour offset to `AutoStockpileAttach` |
-| `AutoStockpileElasticValleyIV`   | Enables the Valley IV region node via `pipeline_override.enabled`                          |
-| `AutoStockpileElasticWuling`     | Enables the Wuling region node via `pipeline_override.enabled`                             |
+| Task option                    | Purpose                                                                                    |
+| ------------------------------ | ------------------------------------------------------------------------------------------ |
+| `AutoStockpileServerTime`      | Selects the server timezone by writing an integer UTC hour offset to `AutoStockpileAttach` |
+| `AutoStockpileElasticValleyIV` | Enables the Valley IV region node via `pipeline_override.enabled`                          |
+| `AutoStockpileElasticWuling`   | Enables the Wuling region node via `pipeline_override.enabled`                             |
 
 The region toggles do not write to `attach`. `AutoStockpileServerTime` writes `server_time` to `AutoStockpileAttach.attach` through `pipeline_override`, and the Go Service reads it at runtime. The current built-in behaviors are:
 

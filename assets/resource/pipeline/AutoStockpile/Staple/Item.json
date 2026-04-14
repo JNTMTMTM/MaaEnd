@@ -15,8 +15,8 @@
                     255,
                     215
                 ],
-                "count": 300,
                 "connected": true,
+                "count": 300,
                 "order_by": "Vertical"
             }
         }
@@ -44,8 +44,8 @@
                     255,
                     255
                 ],
-                "count": 300,
                 "connected": true,
+                "count": 300,
                 "order_by": "Vertical"
             }
         }
@@ -79,13 +79,13 @@
                     55,
                     20
                 ],
+                "method": 6,
                 "lower": [
                     80
                 ],
                 "upper": [
                     122
-                ],
-                "method": 6
+                ]
             }
         }
     },

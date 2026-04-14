@@ -57,8 +57,8 @@
                 "upper": [
                     240
                 ],
-                "count": 1000,
-                "connected": true
+                "connected": true,
+                "count": 1000
             }
         }
     },
@@ -115,13 +115,13 @@
                     130,
                     49
                 ],
+                "method": 6,
                 "lower": [
                     170
                 ],
                 "upper": [
                     255
-                ],
-                "method": 6
+                ]
             }
         }
     },

@@ -78,11 +78,11 @@ assets/resource/image/AutoStockpile/Goods/{Region}/{BaseName}.Tier{N}.png
 
 当前 `assets/tasks/AutoStockpile.json` 中，任务选项包含 1 个服务器时区选项和 2 个地区开关：
 
-| 任务选项                  | 作用                                                                      |
-| ------------------------- | ------------------------------------------------------------------------- |
-| `AutoStockpileServerTime` | 通过 `pipeline_override` 向 `AutoStockpileAttach` 写入服务器 UTC 小时偏移 |
-| `AutoStockpileElasticValleyIV`   | 通过 `pipeline_override.enabled` 启用四号谷地节点                         |
-| `AutoStockpileElasticWuling`     | 通过 `pipeline_override.enabled` 启用武陵节点                             |
+| 任务选项                       | 作用                                                                      |
+| ------------------------------ | ------------------------------------------------------------------------- |
+| `AutoStockpileServerTime`      | 通过 `pipeline_override` 向 `AutoStockpileAttach` 写入服务器 UTC 小时偏移 |
+| `AutoStockpileElasticValleyIV` | 通过 `pipeline_override.enabled` 启用四号谷地节点                         |
+| `AutoStockpileElasticWuling`   | 通过 `pipeline_override.enabled` 启用武陵节点                             |
 
 地区开关不写入 `attach`。`AutoStockpileServerTime` 会通过 `pipeline_override` 将 `server_time` 写入 `AutoStockpileAttach.attach`，并由 Go Service 在运行时读取。当前内建行为如下：
 
