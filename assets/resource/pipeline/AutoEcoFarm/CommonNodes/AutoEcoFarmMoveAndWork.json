@@ -47,7 +47,7 @@
         ]
     },
     "_AutoEcoFarmJump3": {
-        "desc": "松开w，动作后等待 _AutoEcoFarmFindMenuIcon 同 roi 区域画面静止",
+        "desc": "松开w",
         "action": {
             "type": "KeyUp",
             "param": {
@@ -330,17 +330,26 @@
         ]
     },
     "_AutoEcoFarmWaitForTeammate": {
-        "desc": "等待30秒让队友完成工作",
+        "desc": "等待若干秒让队友完成工作（Custom 分片休眠，可响应停止任务）",
         "recognition": "DirectHit",
-        "action": "DoNothing",
-        //每次操作后休息30秒等队友完成工作
-        "post_delay": 30000,
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "autoEcoFarmInterruptibleSleep",
+                "custom_action_param": {
+                    "durationMs": 30000
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
         "next": [
             "[JumpBack]_AutoEcoFarmExitCameraMode",
             "_AutoEcoFarmFindMenuLoop"
         ],
         "focus": {
-            "Node.Action.Succeeded": "等待30秒，让队友多干点活，不是脚本卡咯，别担心"
+            "Node.Action.Starting": "等待30秒，让队友多干点活，不是脚本卡咯，别担心"
         }
     },
     "_AutoEcoFarmCancelMove": {
