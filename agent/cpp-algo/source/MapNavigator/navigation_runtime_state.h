@@ -3,6 +3,7 @@
 #include <chrono>
 #include <cstddef>
 #include <limits>
+#include <optional>
 #include <string>
 
 #include "navi_domain_types.h"
@@ -86,18 +87,16 @@ struct SemanticState
 
 struct RecoveryState
 {
-    bool armed = false;
     std::chrono::steady_clock::time_point stuck_start_time {};
-    double stuck_anchor_distance = 0.0;
+    NaviPosition stuck_anchor_pos {};
+    std::chrono::steady_clock::time_point next_action_time {};
+
+    bool IsActive() const { return stuck_start_time.time_since_epoch().count() > 0; }
 
     void Reset() { 
-        armed = false; 
         stuck_start_time = {};
-        stuck_anchor_distance = 0.0;
-    }
-
-    void Disarm() {
-        armed = false;
+        stuck_anchor_pos = {};
+        next_action_time = {};
     }
 };
 

@@ -11,10 +11,18 @@
 namespace mapnavigator
 {
 
+enum class RecoveryStatus {
+    NotTriggered,
+    InProgress,
+    Recovered,
+    RequestRejoin,
+    TimeoutFailed
+};
+
 class RecoveryManager
 {
 public:
-    static bool Step(
+    static RecoveryStatus Tick(
         MotionController* motion_controller,
         NavigationSession* session,
         NavigationRuntimeState* runtime_state,

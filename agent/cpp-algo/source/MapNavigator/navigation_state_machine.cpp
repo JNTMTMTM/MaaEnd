@@ -341,30 +341,91 @@ bool NavigationStateMachine::TickNavigate()
         session_->ObserveProgress(session_->current_node_idx(), route.progress_distance, now);
     }
     const int64_t stalled_ms = session_->StalledMs(now);
-    if (stalled_ms < kTargetTickMs * 10 && runtime_state_.recovery.armed) {
-        runtime_state_.recovery.Disarm();
-    }
 
-    if (runtime_state_.recovery.stuck_start_time.time_since_epoch().count() > 0) {
-        if (route.progress_distance < runtime_state_.recovery.stuck_anchor_distance - 2.0) {
-            runtime_state_.recovery.stuck_start_time = {};
-        } else {
-            const int64_t stuck_duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
-                now - runtime_state_.recovery.stuck_start_time).count();
-            
-            if (stuck_duration_ms >= 60000) {
-                return FailNavigation(
-                    "recovery_timeout",
-                    "Obstacle recovery failed to make progress after 60 seconds.",
-                    route.progress_distance,
-                    NaviMath::NormalizeAngle(route.route_heading - pose.estimated_heading),
-                    stuck_duration_ms);
-            }
+    if (session_->phase() == NaviPhase::Navigate) {
+        RecoveryStatus recovery_status = RecoveryManager::Tick(
+            motion_controller_, session_, &runtime_state_, pose, route, stalled_ms);
+
+        if (recovery_status == RecoveryStatus::TimeoutFailed) {
+            return FailNavigation(
+                "recovery_timeout", 
+                "Obstacle recovery failed after 60 seconds.", 
+                route.progress_distance, 
+                NaviMath::NormalizeAngle(route.route_heading - pose.estimated_heading), 
+                60000);
         }
-    }
+        
+        if (recovery_status == RecoveryStatus::Recovered) {
+            LogInfo << "Successfully recovered from stuck. Returning control to main loop.";
+            session_->ResetProgress();
+        }
 
-    if (stalled_ms >= kObstacleRecoveryMinTriggerMs && session_->phase() == NaviPhase::Navigate) {
-        if (RecoveryManager::Step(motion_controller_, session_, &runtime_state_, pose, route, stalled_ms)) {
+        if (recovery_status == RecoveryStatus::RequestRejoin) {
+            motion_controller_->SetForwardState(false);
+            runtime_state_.ResetNavigationAssistState();
+            CaptureCurrentPosition(true);
+
+            const double stale_heading = runtime_state_.pose.estimated_heading;
+            runtime_state_.pose.estimated_heading = position_->angle;
+            runtime_state_.pose.initialized = true;
+            LogInfo << "Recovery rejoin: heading hard-reset from MapLocator."
+                    << VAR(stale_heading) << VAR(position_->angle)
+                    << VAR(runtime_state_.pose.estimated_heading);
+
+            size_t best_idx = 0;
+            double best_dist = std::numeric_limits<double>::infinity();
+            for (size_t i = 0; i < session_->original_path().size(); ++i) {
+                const Waypoint& wp = session_->original_path()[i];
+                if (!IsZoneCompatible(wp, position_->zone_id)) {
+                    continue;
+                }
+                const double d = std::hypot(position_->x - wp.x, position_->y - wp.y);
+                if (d < best_dist) {
+                    best_dist = d;
+                    best_idx = i;
+                }
+            }
+
+            const size_t slice_start = session_->FindRejoinSliceStart(best_idx);
+            LogInfo << "Recovery rejoin: nearest waypoint found, re-slicing route."
+                    << VAR(position_->x) << VAR(position_->y) << VAR(position_->zone_id)
+                    << VAR(best_idx) << VAR(best_dist) << VAR(slice_start);
+
+            session_->ApplyRejoinSlice(slice_start, *position_);
+            session_->ResetProgress();
+            runtime_state_.BeginNavigation(std::chrono::steady_clock::now());
+
+            utils::SleepFor(kStopWaitMs);
+
+            if (session_->HasCurrentWaypoint()) {
+                const Waypoint& target_wp = session_->CurrentWaypoint();
+                if (target_wp.HasPosition()) {
+                    const double target_heading = NaviMath::CalcTargetRotation(
+                        position_->x, position_->y, target_wp.x, target_wp.y);
+                    const double heading_error = NaviMath::NormalizeAngle(
+                        target_heading - runtime_state_.pose.estimated_heading);
+
+                    LogInfo << "Recovery rejoin: aligning heading to first waypoint."
+                            << VAR(target_heading) << VAR(runtime_state_.pose.estimated_heading)
+                            << VAR(heading_error);
+
+                    if (std::abs(heading_error) > 3.0) {
+                        const TurnCommandResult turn_result =
+                            motion_controller_->ApplySteering(heading_error);
+                        if (turn_result.issued) {
+                            PoseEstimator::NotifyAppliedSteering(
+                                &runtime_state_.pose, turn_result.issued_delta_degrees);
+                        }
+                        utils::SleepFor(kWaitAfterFirstTurnMs);
+                    }
+                }
+            }
+
+            SelectPhaseForCurrentWaypoint("recovery_rejoin");
+            return true;
+        }
+
+        if (recovery_status == RecoveryStatus::InProgress) {
             utils::SleepFor(kTargetTickMs);
             return true;
         }

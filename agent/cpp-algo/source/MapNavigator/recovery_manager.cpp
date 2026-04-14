@@ -1,40 +1,66 @@
+#include <cmath>
+
 #include "navi_config.h"
 #include "recovery_manager.h"
+#include <MaaUtils/Logger.h>
 
 namespace mapnavigator
 {
 
-bool RecoveryManager::Step(
+RecoveryStatus RecoveryManager::Tick(
     MotionController* motion_controller,
     NavigationSession* session,
     NavigationRuntimeState* runtime_state,
-    const PoseEstimate&,
+    const PoseEstimate& pose,
     const RouteTrackingState& route,
     int64_t stalled_ms)
 {
-    if (motion_controller == nullptr || session == nullptr || runtime_state == nullptr) {
-        return false;
+    (void)session;
+    (void)route;
+
+    auto& state = runtime_state->recovery;
+    const auto now = std::chrono::steady_clock::now();
+
+    if (!state.IsActive()) {
+        if (stalled_ms < kObstacleRecoveryMinTriggerMs) {
+            return RecoveryStatus::NotTriggered;
+        }
+        state.stuck_start_time = now;
+        state.stuck_anchor_pos = pose.filtered_position;
+        LogInfo << "Detected stuck. RecoveryManager taking over.";
+        return RecoveryStatus::InProgress;
     }
 
-    if (stalled_ms < kObstacleRecoveryMinTriggerMs) {
-        return false;
+    const double escape_dist = std::hypot(
+        pose.filtered_position.x - state.stuck_anchor_pos.x,
+        pose.filtered_position.y - state.stuck_anchor_pos.y);
+
+    if (escape_dist > 2.0) {
+        state.Reset();
+        return RecoveryStatus::Recovered;
     }
 
-    if (runtime_state->recovery.armed) {
-        return false;
+    const int64_t total_stuck_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+        now - state.stuck_start_time).count();
+
+    if (total_stuck_ms >= 60000) {
+        return RecoveryStatus::TimeoutFailed;
     }
 
-    if (runtime_state->recovery.stuck_start_time.time_since_epoch().count() == 0) {
-        runtime_state->recovery.stuck_start_time = std::chrono::steady_clock::now();
-        runtime_state->recovery.stuck_anchor_distance = route.progress_distance;
+    if (total_stuck_ms > 10000) {
+        motion_controller->SetForwardState(false);
+        LogInfo << "Jump recovery ineffective after 10s. Requesting rejoin from previous waypoint."
+                << VAR(total_stuck_ms) << VAR(escape_dist);
+        return RecoveryStatus::RequestRejoin;
     }
 
-    motion_controller->SetForwardState(false);
-    motion_controller->SetAction(LocalDriverAction::JumpForward, true);
+    if (now > state.next_action_time) {
+        motion_controller->SetForwardState(false);
+        motion_controller->SetAction(LocalDriverAction::JumpForward, true);
+        state.next_action_time = now + std::chrono::milliseconds(1500);
+    }
 
-    runtime_state->recovery.armed = true;
-    session->ResetProgress();
-    return true;
+    return RecoveryStatus::InProgress;
 }
 
 } // namespace mapnavigator
