@@ -516,49 +516,25 @@
             "param": {
                 "custom_action": "MapTrackerMove",
                 "custom_action_param": {
-                    "arrival_threshold": 1,
-                    "arrival_timeout": 60000,
                     "map_name": "base01_lv003",
                     "path": [
                         [
-                            163,
-                            195
+                            167.9,
+                            195.5
                         ],
                         [
-                            165,
-                            195
+                            177.6,
+                            192.9
                         ],
                         [
-                            167,
-                            193
+                            181.3,
+                            185.2
                         ],
                         [
-                            169,
-                            193
-                        ],
-                        [
-                            176,
-                            188
-                        ],
-                        [
-                            184,
-                            179
-                        ],
-                        [
-                            186,
-                            178
-                        ],
-                        [
-                            186,
-                            176
+                            185.8,
+                            177.2
                         ]
-                    ],
-                    "path_trim": true,
-                    "rotation_lower_threshold": 7.5,
-                    "rotation_upper_threshold": 60,
-                    "sprint_threshold": 9999,
-                    "stuck_threshold": 2500,
-                    "stuck_timeout": 12000
+                    ]
                 }
             }
         },
