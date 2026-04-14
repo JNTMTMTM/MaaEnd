@@ -58,7 +58,7 @@ Optional parameters:
 
 - `rotation_upper_threshold`: Real number between $(0, 180]$, default `60.0`. The direction angle deviation threshold for judging the need for large-scale orientation adjustment. At this time, the player will slow down to adjust orientation.
 
-- `sprint_threshold`: Positive real number, default `20.0`. The distance threshold for performing the sprint action, in pixel distance. When the distance between the player and the next target point exceeds this value and the orientation is correct, the player will perform a sprint.
+- `sprint_threshold`: Positive real number, default `10.0`. The distance threshold for performing the sprint action, in pixel distance. When the distance between the player and the next target point exceeds this value and the orientation is correct, the player will perform a sprint.
 
 - `stuck_threshold`: Positive integer, default `2500`. The minimum duration for judging being stuck, in milliseconds. If the player does not actually move after this period of time, automatic jumping will be triggered.
 

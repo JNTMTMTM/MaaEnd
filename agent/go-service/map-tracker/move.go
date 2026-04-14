@@ -73,7 +73,7 @@ var mapTrackerMoveDefaultParam = MapTrackerMoveParam{
 	ArrivalTimeout:         60000,
 	RotationLowerThreshold: 7.5,
 	RotationUpperThreshold: 60.0,
-	SprintThreshold:        20.0,
+	SprintThreshold:        10.0,
 	StuckThreshold:         2500,
 	StuckTimeout:           10000,
 }
