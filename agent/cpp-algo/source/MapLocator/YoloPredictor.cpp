@@ -202,14 +202,7 @@ YoloCoarseResult YoloPredictor::predictCoarseByYOLO(const cv::Mat& minimap)
         predictedName = yoloClassNames[maxIdx];
     }
 
-    {
-        for (size_t i = 0; i < outputCount; i++) {
-            if (outputData[i] > 0.01f) {
-                const std::string& name = (i < yoloClassNames.size()) ? yoloClassNames[i] : std::to_string(i);
-                LogInfo << "YOLO Raw All: " << "[" << name << "=" << outputData[i] << "]";
-            }
-        }
-    }
+    LogInfo << "YOLO Raw All:" << yoloClassNames << std::vector<float>(outputData, outputData + outputCount);
     LogInfo << "YOLO Raw:" << VAR(predictedName) << VAR(maxIdx) << VAR(maxConf);
     result.raw_class = predictedName;
     result.confidence = maxConf;
