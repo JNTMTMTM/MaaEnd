@@ -125,6 +125,49 @@ clickY = startY + (endY - startY) * numerator / denominator
 }
 ```
 
+## 仅滑动模式
+
+如果你只需要将滑块拖到最大位置，而不需要读取数量或进行微调，可以使用**仅滑动模式**。
+
+仅滑动模式在 `custom_action_param` 中**仅传入 `Direction`（必填）**，以及**可选传入 `SwipeButton`**，且**不包含其他参数**时自动激活。
+
+在此模式下，`BetterSliding` 执行 `SwipeToMax` 拖动后立即返回成功，跳过 OCR、比例点击和微调。`Direction` 用于指定"最大值所在方向"，为必填项；`SwipeButton` 仍然有效——你可以在仅滑动模式下提供自定义滑块模板路径。
+
+> **注意**：在对外调用模式下，`attach` 中的 `Target`、`TargetType`、`TargetReverse`、`FinishAfterPreciseClick` 会在仅滑动模式判定**之前**合并进 `custom_action_param`。因此，如果 `attach` 中存在 `Target`、`TargetType` 或 `TargetReverse`，即使 `custom_action_param` 本身只传了 `Direction`（以及可选的 `SwipeButton`），也不会进入仅滑动模式。`FinishAfterPreciseClick` 会参与合并，但**不会影响**仅滑动模式判定。
+
+最小示例：
+
+```json
+"SomeTaskSwipeToMax": {
+    "action": {
+        "type": "Custom",
+        "param": {
+            "custom_action": "BetterSliding",
+            "custom_action_param": {
+                "Direction": "right"
+            }
+        }
+    }
+}
+```
+
+使用自定义滑块模板：
+
+```json
+"SomeTaskSwipeToMax": {
+    "action": {
+        "type": "Custom",
+        "param": {
+            "custom_action": "BetterSliding",
+            "custom_action_param": {
+                "Direction": "right",
+                "SwipeButton": "MyFeature/MySlider.png"
+            }
+        }
+    }
+}
+```
+
 ## 参数说明
 
 `BetterSliding` 的参数可以分成两类：
@@ -220,47 +263,6 @@ clickY = startY + (endY - startY) * numerator / denominator
 如果传入 `[x, y]`，内部会自动补成 `[x, y, 1, 1]`。
 
 另外，实际从 JSON 反序列化进入 Go 后，这类数组可能表现为 `[]float64` 或 `[]any`，当前实现会自动归一化为整数数组；但如果长度既不是 `2` 也不是 `4`，动作会直接报错返回失败。
-
-## 仅滑动模式
-
-如果你只需要将滑块拖到最大位置，而不需要读取数量或进行微调，可以使用**仅滑动模式**。
-
-仅滑动模式在 `custom_action_param` **不传任何参数**，或**仅传入 `Direction` 和/或 `SwipeButton`** 时自动激活。
-
-在此模式下，`BetterSliding` 执行 `SwipeToMax` 拖动后立即返回成功，跳过 OCR、比例点击和微调。`SwipeButton` 仍然有效——你可以在仅滑动模式下提供自定义滑块模板路径；`Direction` 则用于指定"最大值所在方向"。
-
-最小示例：
-
-```json
-"SomeTaskSwipeToMax": {
-    "action": {
-        "type": "Custom",
-        "param": {
-            "custom_action": "BetterSliding",
-            "custom_action_param": {
-                "Direction": "right"
-            }
-        }
-    }
-}
-```
-
-使用自定义滑块模板：
-
-```json
-"SomeTaskSwipeToMax": {
-    "action": {
-        "type": "Custom",
-        "param": {
-            "custom_action": "BetterSliding",
-            "custom_action_param": {
-                "Direction": "right",
-                "SwipeButton": "MyFeature/MySlider.png"
-            }
-        }
-    }
-}
-```
 
 ## 附加参数
 
