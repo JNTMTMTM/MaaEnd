@@ -2,20 +2,20 @@
     "BatchUseDetectorMain": {
         "desc": "批量使用探物器/罗盘入口",
         "max_hit": 1,
-        "next": [
-            "[JumpBack]ValuableStashValuablesTab"
-        ],
         "anchor": {
             "ValuableStashValuablesTabInNext": "BatchUseDetectorFindWulingItem",
             "ValuableStashValuablesTabInNext2": "BatchUseDetectorFindValleyIVItem"
         },
+        "next": [
+            "[JumpBack]ValuableStashValuablesTab"
+        ],
         "focus": {
             "Node.Action.Starting": "主任务启动"
         }
     },
     "BatchUseDetectorFindWulingItem": {
-        "enabled": true,
         "desc": "在珍贵物品页寻找武陵物品（template 由 Category 选项覆盖）",
+        "enabled": true,
         "recognition": "TemplateMatch",
         "roi": [
             0,
@@ -26,8 +26,8 @@
         "template": "BatchUseDetector/wuling_detector.png",
         "threshold": 0.75,
         "order_by": "Score",
-        "action": "Click",
         "pre_wait_freezes": 500,
+        "action": "Click",
         "post_wait_freezes": 300,
         "next": [
             "BatchUseDetectorConfirmWulingItemName"
@@ -58,8 +58,8 @@
         }
     },
     "BatchUseDetectorFindValleyIVItem": {
-        "enabled": false,
         "desc": "在珍贵物品页寻找四号谷地物品（template 由 Category 选项覆盖）",
+        "enabled": false,
         "recognition": "TemplateMatch",
         "roi": [
             0,
@@ -70,8 +70,8 @@
         "template": "BatchUseDetector/valleyiv_detector.png",
         "threshold": 0.75,
         "order_by": "Score",
-        "action": "Click",
         "pre_wait_freezes": 500,
+        "action": "Click",
         "post_wait_freezes": 300,
         "next": [
             "BatchUseDetectorConfirmValleyIVItemName"
@@ -137,9 +137,9 @@
     },
     "BatchUseDetectorBacktoValuablesTab": {
         "desc": "返回珍贵物品页，返回上一级",
-        "post_wait_freezes": 400,
         "action": "Click",
         "contact": 1,
+        "post_wait_freezes": 400,
         "next": [
             "[JumpBack]BatchUseDetectorConfirmValleyIVItemName",
             "[JumpBack]BatchUseDetectorConfirmWulingItemName",
