@@ -50,6 +50,24 @@ Example file: [`SubTask.json`](../../../assets/resource/pipeline/Interface/Examp
 
 Example file: [`ClearHitCount.json`](../../../assets/resource/pipeline/Interface/Example/ClearHitCount.json)
 
+### PipelineOverride
+
+`PipelineOverride` is implemented in `agent/go-service/common/pipelineoverride`. It merges **partial per-node JSON** into the current pipeline at runtime (`ctx.OverridePipeline`). Use it to toggle nodes or tweak recognition params **without** rewriting the static transition graph when `allow_next` stays `false`.
+
+- Parameters:
+    - `patch: object`: required. Keys are **node names**; values are **partial** node objects. Semantics match MaaFramework `OverridePipeline` (merge same-named nodes, overwrite same-named properties).
+    - `allow_next?: bool`: whether each partial node object may include a top-level `next`. Default `false`; when `false`, `next` is **removed** from every patch entry before applying, so runtime changes do not alter the preset topology.
+    - `strict?: bool`: when `allow_next` is `false`, whether a patch that still contains `next` is an error. Default `false` (`next` is stripped and INFO-logged); when `true`, the action **fails** and nothing is applied—helps catch accidental `next` in `patch`. If `allow_next` is `true`, `strict` is ignored and normalized to `false`.
+
+**Usage guidelines:**
+
+- Prefer changing strategy at the **workflow entry**; if you must change mid-run, limit edits to fields like `enabled` or recognizer/action params, not the `next` graph.
+- If you truly need to change `next` at runtime, set `allow_next: true` deliberately and assess debugging/regression cost; keep it off by default.
+- Pair large overrides with logging/screenshot nodes when troubleshooting.
+- Logs only record non-sensitive metadata such as node counts, node keys, and payload length. Do not rely on runtime logs to capture full `custom_action_param` or patch content, because those payloads may contain credentials or tokens.
+
+Example file: [`PipelineOverride.json`](../../../assets/resource/pipeline/Interface/Example/PipelineOverride.json)
+
 ### AttachToExpectedRegexAction
 
 `AttachToExpectedRegexAction` is implemented in `agent/go-service/common/attachregex`. It generically reads keywords from the target node's own `attach`, then writes the merged whitelist regex back into that target OCR node's `expected`.
@@ -59,9 +77,13 @@ Example file: [`ClearHitCount.json`](../../../assets/resource/pipeline/Interface
 
 Behavior:
 
-- `attach` values support `string` and `string[]`; values are trimmed, deduplicated, and regex-escaped.
+- `attach` values support `string`, `string[]`, and `false`; string values are trimmed, deduplicated, and regex-escaped.
+- When `attach.<key>` is `false`, that item key is **explicitly excluded** from the whitelist built for the current run and does not contribute any keywords to `expected`.
+- `attach.<key> = true` currently does **not** mean "use default keywords"; it produces no whitelist keywords. Use an explicit string or string array instead.
 - If the keyword list is empty, it generates `a^` (never matches).
 - The final result is applied through `OverridePipeline` to the target node's `expected`.
+
+A common pattern is: task options first write multiple item-name groups into one OCR node's `attach`; later in the run, once one item reaches its target amount, `PipelineOverride` can set that `attach.<key>` to `false` so future whitelist regeneration no longer matches that item.
 
 Example:
 
@@ -81,6 +103,8 @@ Compatibility note:
 - If multiple targets need override, prefer multiple `Custom` nodes chained by `next` in Pipeline.
 - If multiple nodes need the same whitelist, write the same `attach` content into each node in task configuration.
 - Other tasks should also prefer this generic action name to avoid business coupling.
+
+Example file: [`AttachToExpectedRegexAction.json`](../../../assets/resource/pipeline/Interface/Example/AttachToExpectedRegexAction.json)
 
 ---
 
@@ -151,6 +175,8 @@ Other examples:
 - `{CurrentCredit}<300`
 - `{CurrentCredit}-{RefreshCost}<400`
 - `({NodeA}+{NodeB})>=100 && {NodeC}==1`
+
+Example file: [`ExpressionRecognition.json`](../../../assets/resource/pipeline/Interface/Example/ExpressionRecognition.json)
 
 Notes:
 

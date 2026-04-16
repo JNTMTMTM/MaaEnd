@@ -94,6 +94,12 @@ func applyAttachRegexOverride(ctx *maa.Context, targetNodeName string, component
 				if trimmed := strings.TrimSpace(v); trimmed != "" {
 					result = append(result, trimmed)
 				}
+			case bool:
+				// false means explicitly exclude this attach key; true currently adds no keywords.
+				if v {
+					continue
+				}
+				continue
 			case []interface{}:
 				for _, item := range v {
 					if s, ok := item.(string); ok {
@@ -109,7 +115,7 @@ func applyAttachRegexOverride(ctx *maa.Context, targetNodeName string, component
 					}
 				}
 			default:
-				log.Warn().Str("component", component).Str("key", key).Interface("value", value).Msg("unsupported attach keyword value type, expect string or string list")
+				log.Warn().Str("component", component).Str("key", key).Interface("value", value).Msg("unsupported attach keyword value type, expect string, string[], or bool(false)")
 			}
 		}
 		return result
