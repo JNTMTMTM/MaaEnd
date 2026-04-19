@@ -662,5 +662,7 @@
     "resource/image/SceneManager/MenuPassNew": "2090d22529cc28d2f622c676f0f8215df8a04912a6ed9d2e07bc9f31fa16e9fe",
     "resource/image/MapLocator/Wuling/Lv004Tier330": "1695949634957d96b65fc985f1be52cc3542c7b5ae19b7fb602e51395a2b02b9",
     "resource/image/MapLocator/Wuling/Lv004Tier328": "062cba1aae39eda8df3ed3a26fb4f484ea05ea92f09056171160a7d40ce77235",
-    "resource/image/MapTracker/map/map02_lv004": "6d63bd9404f6a8b480182a6dd56af3cbc544d1da9f7601af303b318db5652045"
+    "resource/image/MapTracker/map/map02_lv004": "6d63bd9404f6a8b480182a6dd56af3cbc544d1da9f7601af303b318db5652045",
+    "resource/image/AutoStockpile/Goods/Wuling/QingboRafts.Tier2": "e07833f36b8b908da16a9b891f37e3f587e3e581956b44db61a862d61f91d371",
+    "resource/image/AutoStockpile/Goods/Wuling/XiraniteFilterCores.Tier2": "c1b2a18dd02306d2da6828bf6226aff4e37dd61f13cbafc46b8168d1cd31d2b6"
 }
