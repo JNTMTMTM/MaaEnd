@@ -1,5 +1,6 @@
 {
     "AutoStockStapleQuantityControl": {
+        "desc": "购买商品界面的数量控制",
         "recognition": {
             "type": "OCR",
             "param": {
@@ -50,8 +51,7 @@
             "AutoStockStapleQuantityControlYinglungDumbbells",
             "AutoStockStapleQuantityControlWovenAggelos",
             "AutoStockStapleQuantityControlScrimshawOfThePack",
-            "AutoStockStapleQuantityControlChubbyLungFangxingMemorabilia",
-            "AutoStockSwipeToMax"
+            "AutoStockStapleQuantityControlChubbyLungFangxingMemorabilia"
         ]
     },
     "AutoStockStapleQuantityControlValleyEngravingPermit": {
@@ -60,8 +60,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsValleyEngravingPermit"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlValleyEngravingPermitBuy",
+            "AutoStockStapleQuantityControlValleyEngravingPermitExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlValleyEngravingPermitBuy": {
+        "desc": "谷地刻写券低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsValleyEngravingPermit",
                     "AutoStockStapleGoodsValleyEngravingPermitValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "valley_engraving_permit"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlValleyEngravingPermitExclude": {
+        "desc": "谷地刻写券达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsValleyEngravingPermit",
+                    "AutoStockStapleGoodsValleyEngravingPermitExcludeValidate"
                 ]
             }
         },
@@ -93,8 +138,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsKunstTube"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlKunstTubeBuy",
+            "AutoStockStapleQuantityControlKunstTubeExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlKunstTubeBuy": {
+        "desc": "附术铁瓶低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsKunstTube",
                     "AutoStockStapleGoodsKunstTubeValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "kunst_tube"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlKunstTubeExclude": {
+        "desc": "附术铁瓶达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsKunstTube",
+                    "AutoStockStapleGoodsKunstTubeExcludeValidate"
                 ]
             }
         },
@@ -126,8 +216,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsJakubsLegacy"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlJakubsLegacyBuy",
+            "AutoStockStapleQuantityControlJakubsLegacyExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlJakubsLegacyBuy": {
+        "desc": "雅各布的遗产低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsJakubsLegacy",
                     "AutoStockStapleGoodsJakubsLegacyValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "jakubs_legacy"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlJakubsLegacyExclude": {
+        "desc": "雅各布的遗产达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsJakubsLegacy",
+                    "AutoStockStapleGoodsJakubsLegacyExcludeValidate"
                 ]
             }
         },
@@ -159,8 +294,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsPulledSlugMeat"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlPulledSlugMeatBuy",
+            "AutoStockStapleQuantityControlPulledSlugMeatExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlPulledSlugMeatBuy": {
+        "desc": "手撕虫肉低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsPulledSlugMeat",
                     "AutoStockStapleGoodsPulledSlugMeatValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "pulled_slug_meat"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlPulledSlugMeatExclude": {
+        "desc": "手撕虫肉达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsPulledSlugMeat",
+                    "AutoStockStapleGoodsPulledSlugMeatExcludeValidate"
                 ]
             }
         },
@@ -192,8 +372,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsHazefyreBlossom"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlHazefyreBlossomBuy",
+            "AutoStockStapleQuantityControlHazefyreBlossomExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlHazefyreBlossomBuy": {
+        "desc": "雾火之花低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsHazefyreBlossom",
                     "AutoStockStapleGoodsHazefyreBlossomValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "hazefyre_blossom"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlHazefyreBlossomExclude": {
+        "desc": "雾火之花达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsHazefyreBlossom",
+                    "AutoStockStapleGoodsHazefyreBlossomExcludeValidate"
                 ]
             }
         },
@@ -225,8 +450,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsCartilageCookie"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlCartilageCookieBuy",
+            "AutoStockStapleQuantityControlCartilageCookieExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlCartilageCookieBuy": {
+        "desc": "软骨饼干低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsCartilageCookie",
                     "AutoStockStapleGoodsCartilageCookieValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "cartilage_cookie"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlCartilageCookieExclude": {
+        "desc": "软骨饼干达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsCartilageCookie",
+                    "AutoStockStapleGoodsCartilageCookieExcludeValidate"
                 ]
             }
         },
@@ -258,8 +528,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsCosmoMeltoJelly"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlCosmoMeltoJellyBuy",
+            "AutoStockStapleQuantityControlCosmoMeltoJellyExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlCosmoMeltoJellyBuy": {
+        "desc": "星融果冻低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsCosmoMeltoJelly",
                     "AutoStockStapleGoodsCosmoMeltoJellyValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "cosmo_melto_jelly"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlCosmoMeltoJellyExclude": {
+        "desc": "星融果冻达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsCosmoMeltoJelly",
+                    "AutoStockStapleGoodsCosmoMeltoJellyExcludeValidate"
                 ]
             }
         },
@@ -291,8 +606,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsKeenValleyDetector"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlKeenValleyDetectorBuy",
+            "AutoStockStapleQuantityControlKeenValleyDetectorExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlKeenValleyDetectorBuy": {
+        "desc": "新锐谷地探物器低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsKeenValleyDetector",
                     "AutoStockStapleGoodsKeenValleyDetectorValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "keen_valley_detector"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlKeenValleyDetectorExclude": {
+        "desc": "新锐谷地探物器达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsKeenValleyDetector",
+                    "AutoStockStapleGoodsKeenValleyDetectorExcludeValidate"
                 ]
             }
         },
@@ -324,8 +684,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsKeenValleyCompass"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlKeenValleyCompassBuy",
+            "AutoStockStapleQuantityControlKeenValleyCompassExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlKeenValleyCompassBuy": {
+        "desc": "新锐谷地罗盘低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsKeenValleyCompass",
                     "AutoStockStapleGoodsKeenValleyCompassValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "keen_valley_compass"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlKeenValleyCompassExclude": {
+        "desc": "新锐谷地罗盘达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsKeenValleyCompass",
+                    "AutoStockStapleGoodsKeenValleyCompassExcludeValidate"
                 ]
             }
         },
@@ -357,8 +762,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsBreezeOfKjersch"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlBreezeOfKjerschBuy",
+            "AutoStockStapleQuantityControlBreezeOfKjerschExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlBreezeOfKjerschBuy": {
+        "desc": "耶尔什微风低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsBreezeOfKjersch",
                     "AutoStockStapleGoodsBreezeOfKjerschValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "breeze_of_kjersch"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlBreezeOfKjerschExclude": {
+        "desc": "耶尔什微风达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsBreezeOfKjersch",
+                    "AutoStockStapleGoodsBreezeOfKjerschExcludeValidate"
                 ]
             }
         },
@@ -390,8 +840,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsTidestoneSpecimen"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlTidestoneSpecimenBuy",
+            "AutoStockStapleQuantityControlTidestoneSpecimenExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlTidestoneSpecimenBuy": {
+        "desc": "浪潮海石低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsTidestoneSpecimen",
                     "AutoStockStapleGoodsTidestoneSpecimenValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "tidestone_specimen"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlTidestoneSpecimenExclude": {
+        "desc": "浪潮海石达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsTidestoneSpecimen",
+                    "AutoStockStapleGoodsTidestoneSpecimenExcludeValidate"
                 ]
             }
         },
@@ -423,8 +918,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsSimonchShawl"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlSimonchShawlBuy",
+            "AutoStockStapleQuantityControlSimonchShawlExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlSimonchShawlBuy": {
+        "desc": "塞梦珂披巾低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsSimonchShawl",
                     "AutoStockStapleGoodsSimonchShawlValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "simonch_shawl"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlSimonchShawlExclude": {
+        "desc": "塞梦珂披巾达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsSimonchShawl",
+                    "AutoStockStapleGoodsSimonchShawlExcludeValidate"
                 ]
             }
         },
@@ -456,8 +996,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsFrontiersWatch"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlFrontiersWatchBuy",
+            "AutoStockStapleQuantityControlFrontiersWatchExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlFrontiersWatchBuy": {
+        "desc": "《前沿瞭望》低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsFrontiersWatch",
                     "AutoStockStapleGoodsFrontiersWatchValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "frontiers_watch"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlFrontiersWatchExclude": {
+        "desc": "《前沿瞭望》达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsFrontiersWatch",
+                    "AutoStockStapleGoodsFrontiersWatchExcludeValidate"
                 ]
             }
         },
@@ -489,8 +1074,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsAuryleneCamera"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlAuryleneCameraBuy",
+            "AutoStockStapleQuantityControlAuryleneCameraExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlAuryleneCameraBuy": {
+        "desc": "醚质相机低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsAuryleneCamera",
                     "AutoStockStapleGoodsAuryleneCameraValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "aurylene_camera"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlAuryleneCameraExclude": {
+        "desc": "醚质相机达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsAuryleneCamera",
+                    "AutoStockStapleGoodsAuryleneCameraExcludeValidate"
                 ]
             }
         },
@@ -522,8 +1152,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsCosmicGatePuzzle"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlCosmicGatePuzzleBuy",
+            "AutoStockStapleQuantityControlCosmicGatePuzzleExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlCosmicGatePuzzleBuy": {
+        "desc": "星门锁低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsCosmicGatePuzzle",
                     "AutoStockStapleGoodsCosmicGatePuzzleValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "cosmic_gate_puzzle"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlCosmicGatePuzzleExclude": {
+        "desc": "星门锁达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsCosmicGatePuzzle",
+                    "AutoStockStapleGoodsCosmicGatePuzzleExcludeValidate"
                 ]
             }
         },
@@ -555,8 +1230,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsSurfingFestivalTicket"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlSurfingFestivalTicketBuy",
+            "AutoStockStapleQuantityControlSurfingFestivalTicketExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlSurfingFestivalTicketBuy": {
+        "desc": "冲浪大赛门票低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsSurfingFestivalTicket",
                     "AutoStockStapleGoodsSurfingFestivalTicketValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "surfing_festival_ticket"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlSurfingFestivalTicketExclude": {
+        "desc": "冲浪大赛门票达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsSurfingFestivalTicket",
+                    "AutoStockStapleGoodsSurfingFestivalTicketExcludeValidate"
                 ]
             }
         },
@@ -588,8 +1308,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsWulingEngravingPermit"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlWulingEngravingPermitBuy",
+            "AutoStockStapleQuantityControlWulingEngravingPermitExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlWulingEngravingPermitBuy": {
+        "desc": "武陵刻写券低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsWulingEngravingPermit",
                     "AutoStockStapleGoodsWulingEngravingPermitValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "wuling_engraving_permit"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlWulingEngravingPermitExclude": {
+        "desc": "武陵刻写券达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsWulingEngravingPermit",
+                    "AutoStockStapleGoodsWulingEngravingPermitExcludeValidate"
                 ]
             }
         },
@@ -621,8 +1386,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsFortifyingInfusion"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlFortifyingInfusionBuy",
+            "AutoStockStapleQuantityControlFortifyingInfusionExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlFortifyingInfusionBuy": {
+        "desc": "正本补元汤剂低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsFortifyingInfusion",
                     "AutoStockStapleGoodsFortifyingInfusionValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "fortifying_infusion"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlFortifyingInfusionExclude": {
+        "desc": "正本补元汤剂达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsFortifyingInfusion",
+                    "AutoStockStapleGoodsFortifyingInfusionExcludeValidate"
                 ]
             }
         },
@@ -654,8 +1464,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsGardenFriedRice"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlGardenFriedRiceBuy",
+            "AutoStockStapleQuantityControlGardenFriedRiceExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlGardenFriedRiceBuy": {
+        "desc": "锦素炒饭低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsGardenFriedRice",
                     "AutoStockStapleGoodsGardenFriedRiceValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "garden_fried_rice"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlGardenFriedRiceExclude": {
+        "desc": "锦素炒饭达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsGardenFriedRice",
+                    "AutoStockStapleGoodsGardenFriedRiceExcludeValidate"
                 ]
             }
         },
@@ -687,8 +1542,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsMasterPansEggPudding"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlMasterPansEggPuddingBuy",
+            "AutoStockStapleQuantityControlMasterPansEggPuddingExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlMasterPansEggPuddingBuy": {
+        "desc": "潘师傅蛋羹低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsMasterPansEggPudding",
                     "AutoStockStapleGoodsMasterPansEggPuddingValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "master_pans_egg_pudding"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlMasterPansEggPuddingExclude": {
+        "desc": "潘师傅蛋羹达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsMasterPansEggPudding",
+                    "AutoStockStapleGoodsMasterPansEggPuddingExcludeValidate"
                 ]
             }
         },
@@ -720,8 +1620,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsEchoingRemedy"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlEchoingRemedyBuy",
+            "AutoStockStapleQuantityControlEchoingRemedyExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlEchoingRemedyBuy": {
+        "desc": "回响秘剂低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsEchoingRemedy",
                     "AutoStockStapleGoodsEchoingRemedyValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "echoing_remedy"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlEchoingRemedyExclude": {
+        "desc": "回响秘剂达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsEchoingRemedy",
+                    "AutoStockStapleGoodsEchoingRemedyExcludeValidate"
                 ]
             }
         },
@@ -753,8 +1698,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsWulingArtificingCatalyst"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlWulingArtificingCatalystBuy",
+            "AutoStockStapleQuantityControlWulingArtificingCatalystExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlWulingArtificingCatalystBuy": {
+        "desc": "武陵精锻助剂低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsWulingArtificingCatalyst",
                     "AutoStockStapleGoodsWulingArtificingCatalystValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "wuling_artificing_catalyst"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlWulingArtificingCatalystExclude": {
+        "desc": "武陵精锻助剂达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsWulingArtificingCatalyst",
+                    "AutoStockStapleGoodsWulingArtificingCatalystExcludeValidate"
                 ]
             }
         },
@@ -786,8 +1776,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsKeenWulingDetector"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlKeenWulingDetectorBuy",
+            "AutoStockStapleQuantityControlKeenWulingDetectorExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlKeenWulingDetectorBuy": {
+        "desc": "新锐武陵探物器低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsKeenWulingDetector",
                     "AutoStockStapleGoodsKeenWulingDetectorValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "keen_wuling_detector"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlKeenWulingDetectorExclude": {
+        "desc": "新锐武陵探物器达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsKeenWulingDetector",
+                    "AutoStockStapleGoodsKeenWulingDetectorExcludeValidate"
                 ]
             }
         },
@@ -819,8 +1854,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsKeenWulingCompass"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlKeenWulingCompassBuy",
+            "AutoStockStapleQuantityControlKeenWulingCompassExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlKeenWulingCompassBuy": {
+        "desc": "新锐武陵罗盘低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsKeenWulingCompass",
                     "AutoStockStapleGoodsKeenWulingCompassValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "keen_wuling_compass"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlKeenWulingCompassExclude": {
+        "desc": "新锐武陵罗盘达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsKeenWulingCompass",
+                    "AutoStockStapleGoodsKeenWulingCompassExcludeValidate"
                 ]
             }
         },
@@ -852,8 +1932,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsEurekaTeabox"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlEurekaTeaboxBuy",
+            "AutoStockStapleQuantityControlEurekaTeaboxExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlEurekaTeaboxBuy": {
+        "desc": "岳研茶盒低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsEurekaTeabox",
                     "AutoStockStapleGoodsEurekaTeaboxValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "eureka_teabox"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlEurekaTeaboxExclude": {
+        "desc": "岳研茶盒达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsEurekaTeabox",
+                    "AutoStockStapleGoodsEurekaTeaboxExcludeValidate"
                 ]
             }
         },
@@ -885,8 +2010,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsYinglungDumbbells"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlYinglungDumbbellsBuy",
+            "AutoStockStapleQuantityControlYinglungDumbbellsExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlYinglungDumbbellsBuy": {
+        "desc": "应龙哑铃低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsYinglungDumbbells",
                     "AutoStockStapleGoodsYinglungDumbbellsValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "yinglung_dumbbells"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlYinglungDumbbellsExclude": {
+        "desc": "应龙哑铃达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsYinglungDumbbells",
+                    "AutoStockStapleGoodsYinglungDumbbellsExcludeValidate"
                 ]
             }
         },
@@ -918,8 +2088,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsWovenAggelos"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlWovenAggelosBuy",
+            "AutoStockStapleQuantityControlWovenAggelosExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlWovenAggelosBuy": {
+        "desc": "草编天使低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsWovenAggelos",
                     "AutoStockStapleGoodsWovenAggelosValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "woven_aggelos"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlWovenAggelosExclude": {
+        "desc": "草编天使达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsWovenAggelos",
+                    "AutoStockStapleGoodsWovenAggelosExcludeValidate"
                 ]
             }
         },
@@ -951,8 +2166,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsScrimshawOfThePack"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlScrimshawOfThePackBuy",
+            "AutoStockStapleQuantityControlScrimshawOfThePackExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlScrimshawOfThePackBuy": {
+        "desc": "狼群骨雕低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsScrimshawOfThePack",
                     "AutoStockStapleGoodsScrimshawOfThePackValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "scrimshaw_of_the_pack"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlScrimshawOfThePackExclude": {
+        "desc": "狼群骨雕达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsScrimshawOfThePack",
+                    "AutoStockStapleGoodsScrimshawOfThePackExcludeValidate"
                 ]
             }
         },
@@ -984,8 +2244,53 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "AutoStockStapleGoodsChubbyLungFangxingMemorabilia"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlChubbyLungFangxingMemorabiliaBuy",
+            "AutoStockStapleQuantityControlChubbyLungFangxingMemorabiliaExclude"
+        ]
+    },
+    "AutoStockStapleQuantityControlChubbyLungFangxingMemorabiliaBuy": {
+        "desc": "龙泡泡·方兴纪念低于阈值时购买指定数量",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
                     "AutoStockStapleGoodsChubbyLungFangxingMemorabilia",
                     "AutoStockStapleGoodsChubbyLungFangxingMemorabiliaValidate"
+                ]
+            }
+        },
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "AutoStockStapleQuantityControlAction",
+                "custom_action_param": {
+                    "item_name": "chubby_lung_fangxing_memorabilia"
+                }
+            }
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "AutoStockStapleQuantityControlConfirmBuy"
+        ]
+    },
+    "AutoStockStapleQuantityControlChubbyLungFangxingMemorabiliaExclude": {
+        "desc": "龙泡泡·方兴纪念达到阈值后排除",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "AutoStockStapleGoodsChubbyLungFangxingMemorabilia",
+                    "AutoStockStapleGoodsChubbyLungFangxingMemorabiliaExcludeValidate"
                 ]
             }
         },
@@ -1011,6 +2316,26 @@
             "AutoStockStapleQuantityControlResetRecognitionParams"
         ]
     },
+    "AutoStockStapleQuantityControlConfirmBuy": {
+        "desc": "确认购买",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    //这里只是确认仍然还在购买商品的界面
+                    "AutoStockStapleQuantityControl",
+                    "YellowConfirmButtonType1"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "AutoStockStapleQuantityControlCloseRewards"
+        ]
+    },
     "AutoStockStapleQuantityControlResetRecognitionParams": {
         "desc": "重置识别参数",
         "recognition": {
@@ -1025,7 +2350,7 @@
         "action": {
             "type": "Custom",
             "param": {
-                "custom_action": "AttachToExpectedRegexAction", //初始化正则表达式
+                "custom_action": "AttachToExpectedRegexAction",
                 "custom_action_param": {
                     "target": "AutoStockInStapleItemName"
                 }
@@ -1042,6 +2367,20 @@
             "param": {
                 "all_of": [
                     "CloseButtonType1"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        }
+    },
+    "AutoStockStapleQuantityControlCloseRewards": {
+        "desc": "关闭奖励窗口",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "CloseRewardsButton"
                 ]
             }
         },
